@@ -37,7 +37,7 @@ import libUsb.UsbDeviceFactory;
  * @author Andrey Petushkov
  */
 class DDS140 implements Runnable {
-    private static final int BUFFER_SIZE = 0x20000;
+    private static final int BUFFER_SIZE = 0x20000;//0x20000;
     private static final int MAX_MEMORY = 10*1024*1024; // TODO base on configured heap maximum
     static int SAMPLES_PER_BUFFER = BUFFER_SIZE / 2;
     
@@ -153,8 +153,9 @@ class DDS140 implements Runnable {
     }
     
     public DDS140() {
-        //usb = UsbDeviceFactory.createInstance(0xDC5D4E19_D8E4_4BE9L, 0x9D_CD_71_A0_5D_36_FA_CDL);
-        usb = UsbDeviceFactory.createInstance(0x7dc55fc7_4d0b_4e73L, 0xbace_ce14ecf10c32L);
+      usb = UsbDeviceFactory.createInstance(0xDC5D4E19_D8E4_4BE9L, 0x9D_CD_71_A0_5D_36_FA_CDL);
+      //  usb = UsbDeviceFactory.createInstance(0x7dc55fc7_4d0b_4e73L, 0xbace_ce14ecf10c32L);
+     // usb = UsbDeviceFactory.createInstance(0x7dc55fc7_4d0b_4e73L, 0xbace_ce14ecf10c32L);
         dataThread = new Thread(this, "LogicAnalyzer");
         dataThread.setPriority(7);
     }
@@ -315,11 +316,11 @@ class DDS140 implements Runnable {
                             throw new IOException("DD140 go failed");
                         boolean firstPacket = true;
                         while (true) {
+                            Packet packet = getFreePacket();
                             waitFifoFull();
                             if (state != State.RUNNING)
-                                break;
+                                break;                            
                             dataReadyTime = System.nanoTime();
-                            Packet packet = getFreePacket();
                             usb.fillBuffer(packet.getBuffer());
                             dataInTime = System.nanoTime();
                             boolean isRunning = state == State.RUNNING;
@@ -340,7 +341,7 @@ class DDS140 implements Runnable {
                                         String.format("%d%% in/%d%% lost", 
                                                 (int)(65536e11/(dataInTime-dataStartTime))/curFrequency.getFrequency(),
                                                 (int)((dataInTime-dataReadyTime)*100./(dataInTime-dataStartTime)))));
-                                packet.trailingGapLength = (int)((dataInTime-dataReadyTime)/1e9*curFrequency.getFrequency());
+                                packet.trailingGapLength = 0;//(int)((dataInTime-dataReadyTime)/1e9*curFrequency.getFrequency());
                                 synchronized (lock) {
                                     busyPool.add(packet);
                                     lock.notifyAll();

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-03-30T16:52:17</date>
+  <millis>1459345937416</millis>
+  <sequence>0</sequence>
+  <logger>Logic140</logger>
+  <level>SEVERE</level>
+  <class>logic140.Main</class>
+  <method>error</method>
+  <thread>13</thread>
+  <message>Device not connected or driver not installed
+</message>
+  <exception>
+    <message>java.io.FileNotFoundException: Device not connected or driver not installed
+</message>
+    <frame>
+      <class>libUsb.UsbDevice</class>
+      <method>open0</method>
+    </frame>
+    <frame>
+      <class>libUsb.UsbDevice</class>
+      <method>open</method>
+      <line>46</line>
+    </frame>
+    <frame>
+      <class>logic140.DDS140</class>
+      <method>init</method>
+      <line>164</line>
+    </frame>
+    <frame>
+      <class>logic140.Main</class>
+      <method>lambda$start$5</method>
+      <line>118</line>
+    </frame>
+    <frame>
+      <class>java.lang.Thread</class>
+      <method>run</method>
+      <line>745</line>
+    </frame>
+  </exception>
+</record>
+</log>

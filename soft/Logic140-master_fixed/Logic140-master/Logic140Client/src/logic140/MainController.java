@@ -298,6 +298,8 @@ public class MainController {
     
     @FXML
     ChoiceBox<String> ch2AcDcChoiceBox;
+    @FXML
+    TextField offsetE;
     
     @FXML
     void handleTimeValueTextAction(ActionEvent event) {
@@ -332,6 +334,7 @@ public class MainController {
     }
 
     Object lastMouseControl;
+    private int offsetValue = 0;
     
     @FXML
     void handleMouseExited(MouseEvent event) {
@@ -409,6 +412,20 @@ public class MainController {
         assert ch4SpecialChoice != null : "fx:id=\"ch4SpecialChoice\" was not injected: check your FXML file 'FXMLMain.fxml'.";
 
         initControls();
+    }
+
+    @FXML
+    void offsetEAct(ActionEvent event) {
+        try
+        {
+            offsetValue = Integer.parseInt(offsetE.getText());
+            Main.setOffset(offsetValue);
+            offsetE.setPromptText("");
+        }catch(NumberFormatException ex)
+        {
+           offsetE.setPromptText("error!!!"); 
+           offsetE.setText(Integer.toString(offsetValue));
+        }
     }
 
     interface IController {
@@ -649,6 +666,8 @@ public class MainController {
 
         laController.initControls();
         oController.initControls();
+        
+        offsetE.setText("0");
         
         Main.controller = this;
     }

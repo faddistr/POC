@@ -347,7 +347,7 @@ public class OscilloscopeController implements MainController.IController {
         do {
             int xCur = (int)x;
             cur = data[o++] & 0xff;
-            if (xCur == xLast && wavePoints < wavesX.length-3 && dataLeft > 1) {
+            if (xCur == xLast && wavePoints < wavesX.length && dataLeft > 1) {
                 if (cur < min)
                     min = cur;
                 if (cur > max)

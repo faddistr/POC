@@ -77,21 +77,29 @@ public class Main extends Application {
     private static DDS140.Voltage ch1Voltage;
     private static DDS140.Voltage ch2Voltage;
     
+    
+    static public void setOffset(int offset)
+    {
+        error("Offset is set to "+offset, false);
+    }
+    
     @Override
     public void start(final Stage stage) throws Exception {
         logger.addHandler(new FileHandler("error.log"));
         
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("FXMLMain.fxml"));
-//        controller = (FXMLMainController)loader.getController(); // does not work for some reason
+      //  controller = new MainController();
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
         
         stage.setOnCloseRequest((WindowEvent event) -> finish());
-        stage.setOnShown((WindowEvent event) -> controller.postInitControls(stage));
+        stage.setOnShown((WindowEvent event) -> 
+            controller.postInitControls(stage));     
         stage.setTitle("LA140");
         stage.show();
+       
         mainStage = stage;
 
         openFileChooser = new FileChooser();

@@ -33,10 +33,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "usb_device.h"
-#include "src/microrl.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "src/microrl.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -56,9 +55,21 @@ static void MX_GPIO_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-// create microrl object and pointer on it
-microrl_t rl;
-microrl_t * prl = &rl;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	print("interrupt!\r\n");
+}
+
+/**
+  * @brief  This function handles External line 0 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI1_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(Input_interrupt_pin_Pin);
+}
+
 /* USER CODE END 0 */
 
 int main(void)
@@ -81,6 +92,11 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
+	/* Tell system that you will use PD0 for EXTI_Line0 */
+  /* Enable and set EXTI Line0 Interrupt to the lowest priority */
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
   uint8_t testDataToSend[8];
   uint8_t testDataToRec[16];
   uint32_t testDataRecLen;
@@ -108,6 +124,10 @@ int main(void)
 //	  {
 //		  CDC_Transmit_FS(testDataToRec, testDataRecLen);
 //	  }
+	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_SET);
+	  HAL_Delay(100);
+	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
+	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 
@@ -161,9 +181,27 @@ void SystemClock_Config(void)
 void MX_GPIO_Init(void)
 {
 
+  GPIO_InitTypeDef GPIO_InitStruct;
+
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin : Input_interrupt_pin_Pin */
+  GPIO_InitStruct.Pin = Input_interrupt_pin_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(Input_interrupt_pin_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Interrupt_trigger_pin_Pin */
+  GPIO_InitStruct.Pin = Interrupt_trigger_pin_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(Interrupt_trigger_pin_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
 
 }
 

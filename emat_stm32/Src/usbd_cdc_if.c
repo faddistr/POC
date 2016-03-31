@@ -32,9 +32,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
-#include "stm32_microrl_misc.h"
-
 /* USER CODE BEGIN INCLUDE */
+#include "stm32_microrl_misc.h"
 /* USER CODE END INCLUDE */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY

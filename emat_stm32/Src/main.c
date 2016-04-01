@@ -42,7 +42,6 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-
 TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
@@ -55,11 +54,7 @@ static uint32_t timer_counter;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM6_Init(void);
-
 void MX_NVIC_Init(void);
-
-//void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-                
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/

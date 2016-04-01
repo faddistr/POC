@@ -36,6 +36,9 @@
 
 /* USER CODE BEGIN Includes */
 #include "src/microrl.h"
+#include "event_queue.h"
+#include "timer.h"
+#include "stm32_microrl_misc.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -61,32 +64,22 @@ void MX_NVIC_Init(void);
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	char str[16] = {0,};
-	snprintf (str, 16, "cnt=0x%08X", timer_counter);
+	snprintf (str, 16, "cnt=0x%08X", (unsigned)timer_counter);
 	print(str);
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+void EventQueueIsFull(void)
 {
-	timer_counter++;
+	print("Error! EQ is Full!");
+	for(;;);
 }
-
-/**
-  * @brief  This function handles External line 0 interrupt request.
-  * @param  None
-  * @retval None
-  */
-void EXTI1_IRQHandler(void)
-{
-  HAL_GPIO_EXTI_IRQHandler(Input_interrupt_pin_Pin);
-}
-
 /* USER CODE END 0 */
 
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	eq_queue_element_s ev;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -111,18 +104,10 @@ int main(void)
   HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
-  uint8_t testDataToSend[8];
-  uint8_t testDataToRec[16];
-  uint32_t testDataRecLen;
-  uint8_t ret;
-  uint8_t i;
-  for (i = 0; i < 8; i++)
-  {
-    testDataToSend[i] = '0'+i;
-  }
-
   init();
   HAL_TIM_Base_Start_IT(&htim6);
+  EQ_RegisterErrorCalback(EventQueueIsFull);
+  TIMER_StartAuto(1, 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -132,17 +117,19 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-//	  ret = CDC_Receive_FS(testDataToRec, &testDataRecLen);
-//	  stm32_microrl_insert_char();
-//	  HAL_Delay(1000);
-//	  if (USBD_OK == ret)
-//	  {
-//		  CDC_Transmit_FS(testDataToRec, testDataRecLen);
-//	  }
-	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_SET);
-	  HAL_Delay(100);
-	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(100);
+	  TIMER_Task();
+	  EQ_GetEvent(&ev);
+	  switch(ev.event){
+	  case NO_EVENT:
+		  break;
+	  case TIMER1_EXPIRED:
+		  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
+		  break;
+	  }
+//	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_SET);
+//	  HAL_Delay(100);
+//	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
+//	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 
@@ -204,7 +191,7 @@ void MX_TIM6_Init(void)
   htim6.Instance = TIM6;
   htim6.Init.Prescaler = 1;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 1000;
+  htim6.Init.Period = 42000;
   HAL_TIM_Base_Init(&htim6);
 
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_ENABLE;

@@ -25,5 +25,5 @@ char ** complet (int argc, const char * const * argv);
 void sigint (void);
 
 void stm32_microrl_insert_char(int ch);
-
+void TERM_Task(void);
 #endif //_STM32_MICRORL_MISC_H_

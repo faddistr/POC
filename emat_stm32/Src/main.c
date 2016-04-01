@@ -117,18 +117,20 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+	  TERM_Task();
 	  TIMER_Task();
 	  EQ_GetEvent(&ev);
 	  switch(ev.event){
 	  case NO_EVENT:
+		  break;
+	  case CMD_WIDTH:
+		  TIMER_StartAuto(1, ev.param.uiParam);
 		  break;
 	  case TIMER1_EXPIRED:
 		  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
 		  break;
 	  }
 //	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_SET);
-//	  HAL_Delay(100);
-//	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
 //	  HAL_Delay(100);
   }
   /* USER CODE END 3 */

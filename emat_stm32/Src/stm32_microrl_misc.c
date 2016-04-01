@@ -7,9 +7,13 @@
 #include "src/config.h"
 #include "src/microrl.h"
 #include "stm32_microrl_misc.h"
+#include "event_queue.h"
 
+extern void USBD_CDC_TxAlways(const uint8_t *buf, uint32_t len);
 static microrl_t rl;
 static microrl_t * prl = &rl;
+static unsigned curr_cmd_param;
+static enum {COMMAND_EMPTY, COMMAND_WIDTH} curr_cmd = COMMAND_EMPTY;
 
 //*****************************************************************************
 //dummy function, no need on linux-PC
@@ -40,9 +44,7 @@ void stm32_microrl_insert_char(int ch)
 void print (const char * str)
 {
 	int i = 0;
-//	CDC_Transmit_FS((uint8_t*)str, (uint16_t)strlen(str));
 	USBD_CDC_TxAlways((uint8_t*)str, (uint32_t)strlen(str));
-//	fprintf (stdout, "%s", str);
 }
 
 // definition commands word
@@ -55,8 +57,8 @@ void print (const char * str)
 // sub commands for version command
 	#define _SCMD_MRL  "microrl"
 	#define _SCMD_DEMO "demo"
-
-#define _NUM_OF_CMD 6
+#define _CMD_WIDTH "width"
+#define _NUM_OF_CMD 7
 #define _NUM_OF_VER_SCMD 2
 
 //available  commands
@@ -73,6 +75,7 @@ char name [_NAME_LEN];
 int val;
 
 
+
 //*****************************************************************************
 void print_help ()
 {
@@ -85,6 +88,7 @@ void print_help ()
 	print ("\tclear - clear screen\n\r");
 	print ("\tlist  - list all commands in tree\n\r");
 	print ("\tname [string] - print 'name' value if no 'string', set name value to 'string' if 'string' present\n\r");
+	print ("\twidth {width} - set pulse width, ms\n\r");
 	print ("\tlisp - dummy command for demonstation auto-completion, while inputed 'l+<TAB>'\n\r");
 }
 
@@ -132,6 +136,15 @@ int execute (int argc, const char * const * argv)
 				print ("\t");
 				print (keyworld[i]);
 				print ("\n\r");
+			}
+		} else if (strcmp (argv[i], _CMD_WIDTH) == 0) {
+			if (++i < argc) {
+				char* endptr;
+				curr_cmd_param = strtol(argv[i],&endptr,10);
+				curr_cmd = COMMAND_WIDTH;
+				print ("\n\r");
+			} else {
+				print ("width needs 1 parametr, see help\n\r");
 			}
 		} else {
 			print ("command: '");
@@ -189,3 +202,17 @@ void sigint (void)
 {
 	print ("^C catched!\n\r");
 }
+
+void TERM_Task(void)
+{
+	eq_queue_param_u param;
+
+	switch (curr_cmd){
+	case COMMAND_WIDTH:
+		param.uiParam = curr_cmd_param;
+		EQ_PutEventParam(CMD_WIDTH, param);
+		curr_cmd = COMMAND_EMPTY;
+		break;
+	}
+}
+

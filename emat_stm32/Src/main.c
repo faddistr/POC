@@ -58,7 +58,8 @@ void MX_NVIC_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-static void MX_TIM1_Init(void);
+static void MX_TIM1_Init(uint32_t period, uint32_t pulse);
+
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -81,6 +82,8 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 	eq_queue_element_s ev;
+	static uint32_t last_offset=1;
+	static uint32_t last_width=1001;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -100,9 +103,11 @@ int main(void)
   MX_NVIC_Init();
 
   /* USER CODE BEGIN 2 */
+  MX_TIM1_Init(34034, 34);
 	/* Tell system that you will use PD0 for EXTI_Line0 */
   /* Enable and set EXTI Line0 Interrupt to the lowest priority */
-  MX_TIM1_Init();
+
+
 
   HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
@@ -130,7 +135,23 @@ int main(void)
 		  case NO_EVENT:
 			  break;
 		  case CMD_WIDTH:
-			  TIMER_StartAuto(1, ev.param.uiParam);
+			  //TIMER_StartAuto(1, ev.param.uiParam);
+			  last_width = ev.param.uiParam*34;
+			  TIM1->ARR = last_width+last_offset;
+			  break;
+		  case CMD_OFFSET:
+			  last_offset = ev.param.uiParam*34;
+			  TIM1->CCR1 = last_offset;
+			  TIM1->ARR = last_width+last_offset;
+//			  HAL_TIM_OnePulse_Stop(&htim1,TIM_CHANNEL_2);
+//			  sConfig.OCMode = TIM_OCMODE_PWM2;
+//			  sConfig.OCPolarity = TIM_OCPOLARITY_HIGH;
+//			  sConfig.Pulse = ev.param.uiParam*34;
+//			  sConfig.ICPolarity = TIM_ICPOLARITY_RISING;
+//			  sConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
+//			  sConfig.ICFilter = 0;
+//			  HAL_TIM_OnePulse_ConfigChannel(&htim1, &sConfig, TIM_CHANNEL_1, TIM_CHANNEL_2);
+//			  HAL_TIM_OnePulse_Start(&htim1,TIM_CHANNEL_2);
 			  break;
 		  case TIMER1_EXPIRED:
 			  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
@@ -246,20 +267,20 @@ void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 /* TIM1 init function */
-void MX_TIM1_Init(void)
+void MX_TIM1_Init(uint32_t period, uint32_t pulse)
 {
   TIM_OnePulse_InitTypeDef sConfig;
 
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 1;
+  htim1.Init.Prescaler = 4;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 0xFFFF;
+  htim1.Init.Period = period;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   HAL_TIM_OnePulse_Init(&htim1, TIM_OPMODE_SINGLE);
   /*##-2- Configure the Channel 1 in One Pulse mode ##########################*/
   sConfig.OCMode = TIM_OCMODE_PWM2;
   sConfig.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfig.Pulse = 16383;
+  sConfig.Pulse = pulse;
   sConfig.ICPolarity = TIM_ICPOLARITY_RISING;
   sConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfig.ICFilter = 0;

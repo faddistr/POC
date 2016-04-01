@@ -13,7 +13,7 @@ extern void USBD_CDC_TxAlways(const uint8_t *buf, uint32_t len);
 static microrl_t rl;
 static microrl_t * prl = &rl;
 static unsigned curr_cmd_param;
-static enum {COMMAND_EMPTY, COMMAND_WIDTH} curr_cmd = COMMAND_EMPTY;
+static enum {COMMAND_EMPTY, COMMAND_WIDTH, COMMAND_OFFSET} curr_cmd = COMMAND_EMPTY;
 
 //*****************************************************************************
 //dummy function, no need on linux-PC
@@ -58,7 +58,8 @@ void print (const char * str)
 	#define _SCMD_MRL  "microrl"
 	#define _SCMD_DEMO "demo"
 #define _CMD_WIDTH "width"
-#define _NUM_OF_CMD 7
+#define _CMD_OFFSET "offset"
+#define _NUM_OF_CMD 8
 #define _NUM_OF_VER_SCMD 2
 
 //available  commands
@@ -146,6 +147,15 @@ int execute (int argc, const char * const * argv)
 			} else {
 				print ("width needs 1 parametr, see help\n\r");
 			}
+		} else if (strcmp (argv[i], _CMD_OFFSET) == 0) {
+			if (++i < argc) {
+				char* endptr;
+				curr_cmd_param = strtol(argv[i],&endptr,10);
+				curr_cmd = COMMAND_OFFSET;
+				print ("\n\r");
+			} else {
+				print ("offset needs 1 parametr, see help\n\r");
+			}
 		} else {
 			print ("command: '");
 			print ((char*)argv[i]);
@@ -211,6 +221,11 @@ void TERM_Task(void)
 	case COMMAND_WIDTH:
 		param.uiParam = curr_cmd_param;
 		EQ_PutEventParam(CMD_WIDTH, param);
+		curr_cmd = COMMAND_EMPTY;
+		break;
+	case COMMAND_OFFSET:
+		param.uiParam = curr_cmd_param;
+		EQ_PutEventParam(CMD_OFFSET, param);
 		curr_cmd = COMMAND_EMPTY;
 		break;
 	}

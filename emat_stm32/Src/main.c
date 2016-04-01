@@ -42,10 +42,12 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+
 TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim1;
 static uint32_t timer_counter;
 /* USER CODE END PV */
 
@@ -53,11 +55,15 @@ static uint32_t timer_counter;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM6_Init(void);
+
 void MX_NVIC_Init(void);
+
+//void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+                
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+static void MX_TIM1_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -101,11 +107,15 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	/* Tell system that you will use PD0 for EXTI_Line0 */
   /* Enable and set EXTI Line0 Interrupt to the lowest priority */
+  MX_TIM1_Init();
+
   HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
   init();
   HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_OnePulse_Start(&htim1,TIM_CHANNEL_2);
+
   EQ_RegisterErrorCalback(EventQueueIsFull);
   TIMER_StartAuto(1, 10);
   /* USER CODE END 2 */
@@ -119,17 +129,20 @@ int main(void)
   /* USER CODE BEGIN 3 */
 	  TERM_Task();
 	  TIMER_Task();
-	  EQ_GetEvent(&ev);
-	  switch(ev.event){
-	  case NO_EVENT:
-		  break;
-	  case CMD_WIDTH:
-		  TIMER_StartAuto(1, ev.param.uiParam);
-		  break;
-	  case TIMER1_EXPIRED:
-		  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
-		  break;
-	  }
+	  do {
+		  EQ_GetEvent(&ev);
+		  switch(ev.event){
+		  case NO_EVENT:
+			  break;
+		  case CMD_WIDTH:
+			  TIMER_StartAuto(1, ev.param.uiParam);
+			  break;
+		  case TIMER1_EXPIRED:
+			  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
+			  break;
+		  }
+	  } while (ev.event != NO_EVENT);
+
 //	  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_SET);
 //	  HAL_Delay(100);
   }
@@ -237,6 +250,27 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+/* TIM1 init function */
+void MX_TIM1_Init(void)
+{
+  TIM_OnePulse_InitTypeDef sConfig;
+
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 1;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 0xFFFF;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  HAL_TIM_OnePulse_Init(&htim1, TIM_OPMODE_SINGLE);
+  /*##-2- Configure the Channel 1 in One Pulse mode ##########################*/
+  sConfig.OCMode = TIM_OCMODE_PWM2;
+  sConfig.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfig.Pulse = 16383;
+  sConfig.ICPolarity = TIM_ICPOLARITY_RISING;
+  sConfig.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.ICFilter = 0;
+
+  HAL_TIM_OnePulse_ConfigChannel(&htim1, &sConfig, TIM_CHANNEL_1, TIM_CHANNEL_2);
+}
 
 /* USER CODE END 4 */
 

@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-03-30T16:52:17</date>
-  <millis>1459345937416</millis>
+  <date>2016-04-04T17:25:31</date>
+  <millis>1459779931580</millis>
   <sequence>0</sequence>
   <logger>Logic140</logger>
   <level>SEVERE</level>
@@ -32,7 +32,7 @@
     <frame>
       <class>logic140.Main</class>
       <method>lambda$start$5</method>
-      <line>118</line>
+      <line>129</line>
     </frame>
     <frame>
       <class>java.lang.Thread</class>

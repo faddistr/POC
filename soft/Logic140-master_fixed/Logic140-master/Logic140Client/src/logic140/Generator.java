@@ -44,7 +44,7 @@ public class Generator {
     private int                         m_Offset = 0;
     private int                         m_Width = 10;
     private boolean                     m_IsOpen = false;
-    private final byte                  c_EndStr[] = {(byte)0x10, (byte) 0x0a};
+    private final byte                  c_EndStr[] = {(byte)0x0D};
    
     Generator()
     {
@@ -96,7 +96,7 @@ public class Generator {
            m_InputStream.skip(m_InputStream.available());
            m_OutputStream.write(cmd);
            m_OutputStream.write(c_EndStr);
-           m_WaitBytesNum =  c_RespondStr.length() + cmd.length + c_EndStr.length;
+           m_WaitBytesNum =  c_RespondStr.length() + 18*cmd.length + c_EndStr.length + 13;
        } catch (IOException e) {
            return false;
        }
@@ -201,7 +201,7 @@ public class Generator {
         return true;
     }
     
-    private boolean open() {
+    public boolean open() {
         if (openDev() != true) {
             return false;
         } 

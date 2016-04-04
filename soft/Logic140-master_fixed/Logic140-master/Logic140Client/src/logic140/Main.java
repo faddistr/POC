@@ -77,12 +77,23 @@ public class Main extends Application {
     private static DDS140.Voltage ch1Voltage;
     private static DDS140.Voltage ch2Voltage;
     
+     
     
-    static public void setOffset(int offset)
+    static public boolean openGen(int offst, int width, String cmpPrt)
     {
-        error("Offset is set to "+offset, false);
+        error("Open!!!!!!", false);
+        return true;
     }
     
+    static public void closeGen()
+    {
+         error("Close!!!!!!", false);
+    }
+    
+  
+    
+    
+
     @Override
     public void start(final Stage stage) throws Exception {
         logger.addHandler(new FileHandler("error.log"));

@@ -105,7 +105,7 @@ public class MainController {
     TextField ch4NameText;
 
     @FXML
-     Pane ch1Handle;
+    Pane ch1Handle;
 
     @FXML
     TextField ch3NameText;
@@ -237,6 +237,9 @@ public class MainController {
     Button loadButton;
     
     @FXML
+    Button goGenButton;
+    
+    @FXML
     ChoiceBox<String> spiModeChoiceBox;
     
     @FXML
@@ -298,8 +301,15 @@ public class MainController {
     
     @FXML
     ChoiceBox<String> ch2AcDcChoiceBox;
+    
     @FXML
     TextField offsetE;
+    
+    @FXML
+    TextField widthE;
+    
+    @FXML
+    TextField comPortE;
     
     @FXML
     void handleTimeValueTextAction(ActionEvent event) {
@@ -334,7 +344,7 @@ public class MainController {
     }
 
     Object lastMouseControl;
-    private int offsetValue = 0;
+
     
     @FXML
     void handleMouseExited(MouseEvent event) {
@@ -414,20 +424,36 @@ public class MainController {
         initControls();
     }
 
+
+    private boolean isOpen = false;
     @FXML
-    void offsetEAct(ActionEvent event) {
-        try
+    void handleGoGenBtn(ActionEvent event) {
+        if (isOpen) 
         {
-            offsetValue = Integer.parseInt(offsetE.getText());
-            Main.setOffset(offsetValue);
-            offsetE.setPromptText("");
-        }catch(NumberFormatException ex)
+            Main.closeGen();
+            isOpen = false;
+        } 
+        else
         {
-           offsetE.setPromptText("error!!!"); 
-           offsetE.setText(Integer.toString(offsetValue));
+            try 
+            {
+                gController.setOffset(Integer.parseInt(offsetE.getText()));
+                gController.setWidth(Integer.parseInt(widthE.getText()));
+                gController.setPortName(comPortE.getText());
+                isOpen = gController.open();
+            } catch (NumberFormatException ex) 
+            {
+                Main.error(ex, false);
+            }
         }
+        Main.error(Boolean.toString(isOpen), false);
+        goGenButton.setText(isOpen?"Close gen":"Go gen");
+        widthE.setDisable(isOpen);
+        offsetE.setDisable(isOpen);
+        comPortE.setDisable(isOpen);
     }
 
+             
     interface IController {
         void initControls();
         
@@ -465,6 +491,7 @@ public class MainController {
     int waveZoomChangePivotX = 0;
     final LogicAnalyzerController laController = new LogicAnalyzerController(this);
     final OscilloscopeController oController = new OscilloscopeController(this);
+    final Generator              gController = new Generator();
     private IController iController = laController;
 
     final BooleanProperty goButton2Enable = new BooleanPropertyBase() {

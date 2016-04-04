@@ -78,8 +78,7 @@ public class Generator {
 	while (portList.hasMoreElements()) {
 	    CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
 	    if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-                String str = portId.getName();
-		if (str.equals(portName)) {
+		if (portId.getName().equals(portName)) {
                     rportId = portId;
                     break;
 		} 

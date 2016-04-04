@@ -463,7 +463,6 @@ public class MainController {
     void handleGoGenBtn(ActionEvent event) {
         if (isOpen) 
         {
-            Main.closeGen();
             isOpen = false;
         } 
         else

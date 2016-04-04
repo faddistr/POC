@@ -78,19 +78,7 @@ public class Main extends Application {
     private static DDS140.Voltage ch2Voltage;
     
      
-    
-    static public boolean openGen(int offst, int width, String cmpPrt)
-    {
-        error("Open!!!!!!", false);
-        return true;
-    }
-    
-    static public void closeGen()
-    {
-         error("Close!!!!!!", false);
-    }
-    
-  
+
     
     
 

@@ -426,6 +426,39 @@ public class MainController {
 
 
     private boolean isOpen = false;
+    
+    @FXML
+    void widthEAct(ActionEvent event) {
+      try 
+      {
+        if(gController.setWidth(Integer.parseInt(widthE.getText())) == false)
+        {
+            Main.error("Failed to set width!", false);
+        }  
+      }
+      catch (NumberFormatException ex) 
+      {
+          Main.error(ex, false);
+      }
+      widthE.setText(Integer.toString(gController.getWidth()));
+    }
+    
+    @FXML
+    void offsetEAct(ActionEvent event) {
+      try 
+      {
+        if(gController.setOffset(Integer.parseInt(offsetE.getText())) == false)
+        {
+            Main.error("Failed to set offset!", false);
+        }  
+      }
+      catch (NumberFormatException ex) 
+      {
+          Main.error(ex, false);
+      }
+      offsetE.setText(Integer.toString(gController.getOffset()));
+    }
+    
     @FXML
     void handleGoGenBtn(ActionEvent event) {
         if (isOpen) 
@@ -441,15 +474,19 @@ public class MainController {
                 gController.setWidth(Integer.parseInt(widthE.getText()));
                 gController.setPortName(comPortE.getText());
                 isOpen = gController.open();
+                
+                if (isOpen == false) 
+                {
+                     Main.error("Failed to open generator", false);
+                }
             } catch (NumberFormatException ex) 
             {
                 Main.error(ex, false);
+                offsetE.setText(Integer.toString(gController.getOffset()));
+                widthE.setText(Integer.toString(gController.getWidth()));
             }
         }
-        Main.error(Boolean.toString(isOpen), false);
-        goGenButton.setText(isOpen?"Close gen":"Go gen");
-        widthE.setDisable(isOpen);
-        offsetE.setDisable(isOpen);
+        goGenButton.setText(isOpen?"Close generator":"Go generate");
         comPortE.setDisable(isOpen);
     }
 

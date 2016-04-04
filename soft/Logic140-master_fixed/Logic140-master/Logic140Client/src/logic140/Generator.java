@@ -78,7 +78,8 @@ public class Generator {
 	while (portList.hasMoreElements()) {
 	    CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
 	    if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-		if (portId.getName().equals(portName)) {
+                String str = portId.getName();
+		if (str.equals(portName)) {
                     rportId = portId;
                     break;
 		} 
@@ -98,7 +99,7 @@ public class Generator {
                 m_OutputStream.write(cmd);
            }
            m_OutputStream.write(c_EndStr);
-           m_WaitBytesNum =  12+c_RespondStr.length() + 18*cmd.length + 1;
+           m_WaitBytesNum = 12 + c_RespondStr.length() + 18*cmd.length + 1;
        } catch (IOException e) {
            return false;
        }

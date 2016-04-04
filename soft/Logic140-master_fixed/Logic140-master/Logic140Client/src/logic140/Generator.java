@@ -94,9 +94,11 @@ public class Generator {
     private boolean sendCommand(byte[] cmd){
        try {
            m_InputStream.skip(m_InputStream.available());
-           m_OutputStream.write(cmd);
+           if (cmd != null) {
+                m_OutputStream.write(cmd);
+           }
            m_OutputStream.write(c_EndStr);
-           m_WaitBytesNum =  c_RespondStr.length() + 18*cmd.length + c_EndStr.length + 13;
+           m_WaitBytesNum =  12+c_RespondStr.length() + 18*cmd.length + 1;
        } catch (IOException e) {
            return false;
        }
@@ -108,13 +110,11 @@ public class Generator {
         byte[] readBuffer = new byte[m_WaitBytesNum];
         
         try {
-            if (m_InputStream.available() > m_WaitBytesNum) {
-                m_InputStream.read(readBuffer);
-                String str = new String (readBuffer, StandardCharsets.UTF_8);
-                return str.contains(c_RespondStr);
-            }
+            while (m_InputStream.available() < m_WaitBytesNum);
+            m_InputStream.read(readBuffer);
+            String str = new String (readBuffer, StandardCharsets.UTF_8);
+            return str.contains(c_RespondStr);
         } catch (IOException e) {
-            return false;
         }
         
         return false;
@@ -191,7 +191,7 @@ public class Generator {
             return false;
         }
         
-        if (sendCmdB(new String(c_EndStr)) != true) {
+        if (sendCmdB("") != true) {
             close();
             return false;
         }

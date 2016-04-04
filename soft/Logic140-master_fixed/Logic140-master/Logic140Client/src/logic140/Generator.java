@@ -27,7 +27,7 @@ package logic140;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import javax.comm.*;
+import gnu.io.*;
 /**
  *
  * @author dmytro.fedorchenko

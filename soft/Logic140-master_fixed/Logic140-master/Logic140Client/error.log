@@ -2,14 +2,14 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-04-04T17:25:31</date>
-  <millis>1459779931580</millis>
+  <date>2016-04-04T18:14:42</date>
+  <millis>1459782882332</millis>
   <sequence>0</sequence>
   <logger>Logic140</logger>
   <level>SEVERE</level>
   <class>logic140.Main</class>
   <method>error</method>
-  <thread>13</thread>
+  <thread>16</thread>
   <message>Device not connected or driver not installed
 </message>
   <exception>
@@ -41,4 +41,3 @@
     </frame>
   </exception>
 </record>
-</log>

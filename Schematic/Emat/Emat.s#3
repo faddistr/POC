@@ -20428,7 +20428,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="R8" library="rcl" deviceset="R-US_" device="R1206" value="1K"/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="R9" library="rcl" deviceset="R-US_" device="R1206" value="DNS"/>
 <part name="C6" library="rcl" deviceset="C-US" device="C0805" value="1uF 16V"/>
 <part name="C7" library="rcl" deviceset="C-US" device="C0805" value="1uF 16V"/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
@@ -20448,6 +20447,8 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="J3" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="J4" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="J5" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="Q1" library="transistor-power" deviceset="STP13NM60N" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -20479,7 +20480,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="GND5" gate="1" x="2.54" y="45.72"/>
 <instance part="R8" gate="G$1" x="-5.08" y="55.88" rot="R90"/>
 <instance part="GND6" gate="1" x="-5.08" y="45.72"/>
-<instance part="R9" gate="G$1" x="48.26" y="60.96" rot="R180"/>
 <instance part="C6" gate="G$1" x="-35.56" y="81.28"/>
 <instance part="C7" gate="G$1" x="-22.86" y="81.28"/>
 <instance part="GND7" gate="1" x="-22.86" y="73.66"/>
@@ -20499,6 +20499,8 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="GND11" gate="1" x="167.64" y="38.1"/>
 <instance part="J3" gate="G$1" x="187.96" y="81.28"/>
 <instance part="J4" gate="G$1" x="187.96" y="88.9"/>
+<instance part="J5" gate="G$1" x="48.26" y="60.96"/>
+<instance part="Q1" gate="T" x="81.28" y="38.1"/>
 </instances>
 <busses>
 </busses>
@@ -20648,8 +20650,8 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <pinref part="U1" gate="A" pin="OUTB"/>
 <wire x1="38.1" y1="68.58" x2="40.64" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="40.64" y1="68.58" x2="40.64" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="R9" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="60.96" x2="43.18" y2="60.96" width="0.1524" layer="91"/>
+<pinref part="J5" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="+12V" class="0">

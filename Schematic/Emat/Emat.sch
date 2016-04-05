@@ -13043,6 +13043,29 @@ grid 2.54 mm</description>
 <rectangle x1="-0.889" y1="-1.27" x2="0.889" y2="-0.762" layer="51"/>
 <rectangle x1="1.651" y1="-1.27" x2="3.429" y2="-0.762" layer="51"/>
 </package>
+<package name="TO220BVH">
+<description>&lt;b&gt;Molded Package&lt;/b&gt;&lt;p&gt;
+grid 2.54 - 5.08 mm</description>
+<wire x1="4.699" y1="-4.318" x2="4.953" y2="-4.064" width="0.1524" layer="21"/>
+<wire x1="4.699" y1="-4.318" x2="-4.699" y2="-4.318" width="0.1524" layer="21"/>
+<wire x1="-4.953" y1="-4.064" x2="-4.699" y2="-4.318" width="0.1524" layer="21"/>
+<wire x1="5.08" y1="-1.143" x2="4.953" y2="-4.064" width="0.1524" layer="21"/>
+<wire x1="-4.953" y1="-4.064" x2="-5.08" y2="-1.143" width="0.1524" layer="21"/>
+<circle x="-4.4958" y="-3.7084" radius="0.254" width="0" layer="21"/>
+<pad name="G" x="-2.54" y="-2.54" drill="1.016" shape="long" rot="R90"/>
+<pad name="D" x="0" y="-6.35" drill="1.016" shape="long" rot="R90"/>
+<pad name="S" x="2.54" y="-2.54" drill="1.016" shape="long" rot="R90"/>
+<text x="1.524" y="-6.0452" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="1.524" y="-7.62" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="-5.334" y1="-0.762" x2="5.334" y2="0" layer="21"/>
+<rectangle x1="-5.334" y1="-1.27" x2="-3.429" y2="-0.762" layer="21"/>
+<rectangle x1="-3.429" y1="-1.27" x2="-1.651" y2="-0.762" layer="51"/>
+<rectangle x1="3.429" y1="-1.27" x2="5.334" y2="-0.762" layer="21"/>
+<rectangle x1="1.651" y1="-1.27" x2="3.429" y2="-0.762" layer="51"/>
+<rectangle x1="-0.508" y1="-6.35" x2="0.508" y2="-4.953" layer="51"/>
+<rectangle x1="-1.651" y1="-1.27" x2="1.651" y2="-0.762" layer="21"/>
+<rectangle x1="-0.508" y1="-4.953" x2="0.508" y2="-4.318" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="MFNS">
@@ -13095,6 +13118,16 @@ grid 2.54 mm</description>
 </gates>
 <devices>
 <device name="" package="TO220BV">
+<connects>
+<connect gate="T" pin="D" pad="D"/>
+<connect gate="T" pin="G" pad="G"/>
+<connect gate="T" pin="S" pad="S"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="TO220BVH" package="TO220BVH">
 <connects>
 <connect gate="T" pin="D" pad="D"/>
 <connect gate="T" pin="G" pad="G"/>
@@ -20406,7 +20439,7 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="U1" library="UCC27324D" deviceset="UCC27324D" device=""/>
 <part name="R1" library="rcl" deviceset="R-US_" device="R1206" value="51"/>
 <part name="R2" library="rcl" deviceset="R-US_" device="R1206" value="3.3"/>
-<part name="Q2" library="transistor-power" deviceset="STP13NM60N" device=""/>
+<part name="Q2" library="transistor-power" deviceset="STP13NM60N" device="TO220BVH" value="STP13NM60NTO220BVH"/>
 <part name="R40" library="rcl" deviceset="R-US_" device="R2512" value="22K"/>
 <part name="R41" library="rcl" deviceset="R-US_" device="R2512" value="22K"/>
 <part name="C1" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n"/>
@@ -20428,7 +20461,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="R8" library="rcl" deviceset="R-US_" device="R1206" value="1K"/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="R9" library="rcl" deviceset="R-US_" device="R1206" value="DNS"/>
 <part name="C6" library="rcl" deviceset="C-US" device="C0805" value="1uF 16V"/>
 <part name="C7" library="rcl" deviceset="C-US" device="C0805" value="1uF 16V"/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
@@ -20448,6 +20480,16 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="J3" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="J4" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="J5" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="J6" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="J7" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="GND12" library="supply1" deviceset="GND" device=""/>
+<part name="J8" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="J9" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="GND13" library="supply1" deviceset="GND" device=""/>
+<part name="J10" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="J11" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="GND14" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -20479,7 +20521,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="GND5" gate="1" x="2.54" y="45.72"/>
 <instance part="R8" gate="G$1" x="-5.08" y="55.88" rot="R90"/>
 <instance part="GND6" gate="1" x="-5.08" y="45.72"/>
-<instance part="R9" gate="G$1" x="48.26" y="60.96" rot="R180"/>
 <instance part="C6" gate="G$1" x="-35.56" y="81.28"/>
 <instance part="C7" gate="G$1" x="-22.86" y="81.28"/>
 <instance part="GND7" gate="1" x="-22.86" y="73.66"/>
@@ -20499,6 +20540,16 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="GND11" gate="1" x="167.64" y="38.1"/>
 <instance part="J3" gate="G$1" x="187.96" y="81.28"/>
 <instance part="J4" gate="G$1" x="187.96" y="88.9"/>
+<instance part="J5" gate="G$1" x="48.26" y="60.96"/>
+<instance part="J6" gate="G$1" x="-53.34" y="81.28" rot="R180"/>
+<instance part="J7" gate="G$1" x="-53.34" y="88.9" rot="R180"/>
+<instance part="GND12" gate="1" x="-48.26" y="73.66"/>
+<instance part="J8" gate="G$1" x="-7.62" y="132.08" rot="R180"/>
+<instance part="J9" gate="G$1" x="-7.62" y="124.46" rot="R180"/>
+<instance part="GND13" gate="1" x="-2.54" y="116.84"/>
+<instance part="J10" gate="G$1" x="-20.32" y="66.04" rot="R180"/>
+<instance part="J11" gate="G$1" x="-20.32" y="58.42" rot="R180"/>
+<instance part="GND14" gate="1" x="-15.24" y="45.72"/>
 </instances>
 <busses>
 </busses>
@@ -20602,6 +20653,21 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <wire x1="167.64" y1="40.64" x2="167.64" y2="43.18" width="0.1524" layer="91"/>
 <junction x="167.64" y="43.18"/>
 </segment>
+<segment>
+<pinref part="J6" gate="G$1" pin="1"/>
+<pinref part="GND12" gate="1" pin="GND"/>
+<wire x1="-48.26" y1="76.2" x2="-48.26" y2="81.28" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="J9" gate="G$1" pin="1"/>
+<pinref part="GND13" gate="1" pin="GND"/>
+<wire x1="-2.54" y1="119.38" x2="-2.54" y2="124.46" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="J11" gate="G$1" pin="1"/>
+<pinref part="GND14" gate="1" pin="GND"/>
+<wire x1="-15.24" y1="48.26" x2="-15.24" y2="58.42" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="N$6" class="0">
 <segment>
@@ -20648,8 +20714,8 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <pinref part="U1" gate="A" pin="OUTB"/>
 <wire x1="38.1" y1="68.58" x2="40.64" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="40.64" y1="68.58" x2="40.64" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="R9" gate="G$1" pin="2"/>
 <wire x1="40.64" y1="60.96" x2="43.18" y2="60.96" width="0.1524" layer="91"/>
+<pinref part="J5" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="+12V" class="0">
@@ -20667,6 +20733,8 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <pinref part="SUPPLY3" gate="+12V" pin="+12V"/>
 <wire x1="-35.56" y1="93.98" x2="-35.56" y2="88.9" width="0.1524" layer="91"/>
 <junction x="-35.56" y="88.9"/>
+<pinref part="J7" gate="G$1" pin="1"/>
+<wire x1="-48.26" y1="88.9" x2="-35.56" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$13" class="0">
@@ -20697,6 +20765,8 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <pinref part="SUPPLY2" gate="G$1" pin="+UB"/>
 <wire x1="10.16" y1="137.16" x2="10.16" y2="132.08" width="0.1524" layer="91"/>
 <junction x="10.16" y="132.08"/>
+<pinref part="J8" gate="G$1" pin="1"/>
+<wire x1="-2.54" y1="132.08" x2="10.16" y2="132.08" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$10" class="0">
@@ -20765,6 +20835,13 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <junction x="157.48" y="88.9"/>
 <pinref part="J4" gate="G$1" pin="1"/>
 <wire x1="182.88" y1="88.9" x2="157.48" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$5" class="0">
+<segment>
+<pinref part="R1" gate="G$1" pin="1"/>
+<pinref part="J10" gate="G$1" pin="1"/>
+<wire x1="-15.24" y1="66.04" x2="-12.7" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

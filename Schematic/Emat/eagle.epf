@@ -366,10 +366,29 @@ UsedLibrary="D:/workspace/EMAT/POC/Schematic/lib/SparkFun-Eagle-Libraries-master
 UsedLibrary="D:/workspace/EMAT/POC/Schematic/lib/SparkFun-Eagle-Libraries-master/SparkFun-Eagle-Libraries-master/SparkFun-RF.lbr"
 UsedLibrary="D:/workspace/EMAT/POC/Schematic/lib/SparkFun-Eagle-Libraries-master/SparkFun-Eagle-Libraries-master/SparkFun-Sensors.lbr"
 UsedLibrary="D:/workspace/EMAT/POC/Schematic/lib/SparkFun-Eagle-Libraries-master/SparkFun-Eagle-Libraries-master/User-Submitted.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/accelerometer.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/buttons.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/buzzer.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/crystal.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/diodes.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/frames-tt.org.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/led.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/logo.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/myrelays.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/optocoupler.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/ptc-littlefuse.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/rc-master.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/rc-master-smd.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/semiconductor.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/semicon-smd-ipc.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/supply1.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/switch-dil.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/testpad.lbr"
+UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/triac.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="-8 -30 591 369"
+Loc="1938 10 3048 507"
 State=2
 Number=0
 

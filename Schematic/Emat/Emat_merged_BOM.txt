@@ -1,7 +1,7 @@
 
 1   EFD25             EFD25        TRANSFORMER
 1   UCC27324D         SOIC-8N      POWER MOSFET DRIVERS                                              
-1   UC3843N DIP8      DIL08        SMPS Controller
+1   UC3843N           DIL08        SMPS Controller
 1   BSS138            SOT23-3      NMOSFET Parts
 1   IRF640            TO220B       HEXFET Power MOSFET
 1   STP13NM60N        TO220BVH     N-CHANNEL MOS FET                                                                                    
@@ -13,9 +13,10 @@
 2   MUR160            DO41-10      DIODE                                                                                                
 2   PC817             DIL04        OPTO COUPLER
 
-2   47uF 25V          E5-8,5       POLARIZED CAPACITOR
-2   47uF 450V         E7,5-18      POLARIZED CAPACITOR
-1   2200uF 25V        E7,5-18      POLARIZED CAPACITOR
+POLARIZED CAPACITOR
+2   47uF 25V          
+2   47uF 450V         
+1   2200uF 25V        
 
 HV CAPACITOR
 1   1.2nF 630V        K78-2

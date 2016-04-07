@@ -16665,8 +16665,8 @@ http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&amp;name=A24734CT-ND
 <instance part="GND18" gate="1" x="53.34" y="-53.34"/>
 <instance part="C13" gate="G$1" x="-15.24" y="-45.72"/>
 <instance part="GND19" gate="1" x="-15.24" y="-53.34"/>
-<instance part="J1" gate="G$1" x="-38.1" y="-7.62" rot="R180"/>
-<instance part="J2" gate="G$1" x="-38.1" y="-12.7" rot="R180"/>
+<instance part="J1" gate="G$1" x="-27.94" y="-7.62" rot="R180"/>
+<instance part="J2" gate="G$1" x="-27.94" y="-12.7" rot="R180"/>
 <instance part="J3" gate="G$1" x="180.34" y="48.26"/>
 <instance part="R21" gate="G$1" x="177.8" y="20.32" rot="R90"/>
 <instance part="R22" gate="G$1" x="187.96" y="20.32" rot="R90"/>
@@ -17078,14 +17078,14 @@ http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&amp;name=A24734CT-ND
 <segment>
 <pinref part="OK2" gate="A" pin="A"/>
 <pinref part="J1" gate="G$1" pin="1"/>
-<wire x1="-33.02" y1="-7.62" x2="-17.78" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="-22.86" y1="-7.62" x2="-17.78" y2="-7.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$19" class="0">
 <segment>
 <pinref part="OK2" gate="A" pin="C"/>
 <pinref part="J2" gate="G$1" pin="1"/>
-<wire x1="-33.02" y1="-12.7" x2="-17.78" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="-22.86" y1="-12.7" x2="-17.78" y2="-12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$20" class="0">

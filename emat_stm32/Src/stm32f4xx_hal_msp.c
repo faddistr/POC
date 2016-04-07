@@ -115,9 +115,12 @@ void HAL_TIM_OnePulse_MspInit(TIM_HandleTypeDef *htim)
   /* Enable GPIO Port Channel1 & channel2 Clock */
 //  TIM1_CHANNEL_GPIO_PORT();
 
-  /* Configure PB.6 (TIM4_Channel1) and PB.7 (TIM4_Channel2) */
+  /*
+   *  Configure PE.9  (TIM1_Channel1) - Output
+   *       and PE.11  (TIM1_Channel2) - Input
+   */
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF1_TIM1;
 

@@ -1,0 +1,33 @@
+Partlist exported from D:/workspace/EMAT/POC/Schematic/Emat/Emat_300v.sch at 4/7/2016 10:36 AM
+
+Qty Value             Device                Package      Parts                                 Description
+1   EFD25             EFD25                 EFD25        T1                                    TRANSFORMER
+1   UC3843N           UC3843N               DIL08        IC1                                   SMPS Controller
+1   BSS138            MOSFET-NCHANNELBSS138 SOT23-3      Q1                                    Common NMOSFET Parts
+1   IRF640IW220B      IRF640IW220B          IW220B       Q2                                    HEXFET Power MOSFET
+2   LL4148MINIMELF    LL4148MINIMELF        MINIMELF     D5, D6                                DIODE              
+2   MBR0540           DIODE-SOD123          SOD123       D3, D4                                DIODE              
+1   MUR4100           DIODE-DO201-15        DO201-15     D7                                    DIODE              
+2   1.5KE15A          DIODE-DO201-15        DO201-15     D1, D2                                DIODE
+2   PC817             PC817                 DIL04        OK1, OK2                              SHARP OPTO COUPLER
+2   47uF 25V          CPOL-USE5-8.5         E5-8,5       C5, C8                                POLARIZED CAPACITOR
+1   47uF 450V         CPOL-USE7.5-18        E7,5-18      C19                                   POLARIZED CAPACITOR
+1   2200uF 25V        CPOL-USE7.5-18        E7,5-18      C10                                   POLARIZED CAPACITOR
+1   1.2nF 630V K78-2  C-EU150-064X183       C150-064X183 C14                                   CAPACITOR
+1   330nF 630V K73-17 C-EU225-062X268       C225-062X268 C16                                   CAPACITOR
+1   220pF 1000V       C-EU075-042X103       C075-042X103 C15                                   CAPACITOR
+1   220pF             C-EUC0805             C0805        C6                                    CAPACITOR
+1   22nF              C-EUC0805             C0805        C2                                    CAPACITOR
+7   470nF             C-EUC0805             C0805        C1, C3, C7, C9, C11, C12, C13         CAPACITOR
+1   8.2nF             C-EUC0805             C0805        C4                                    CAPACITOR
+2   100               R-US_R2512            R2512        R21, R22                              RESISTOR
+3   10                R-US_R1206            R1206        R8, R18, R20                          RESISTOR
+1   100K              R-US_R1206            R1206        R17                                   RESISTOR
+5   10K               R-US_R1206            R1206        R1, R2, R4, R9, R19                   RESISTOR
+2   1K                R-US_R1206            R1206        R3, R6                                RESISTOR
+8   2                 R-US_R1206            R1206        R7, R10, R11, R12, R13, R14, R15, R16 RESISTOR
+2   220K              R-US_R1206            R1206        R25, R26                              RESISTOR
+1   3.6K              R-US_R1206            R1206        R5                                    RESISTOR
+2   51                R-US_R1206            R1206        R23, R24                              RESISTOR
+1   RCH895-100M-10uH  RCH-89511             BS11         L2                                    INDUCTOR
+6   PIN1-2            PIN1-2                62221        J1, J2, J3, J4, J5, J6                CONN 

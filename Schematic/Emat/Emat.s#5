@@ -20448,6 +20448,7 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="J3" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="J4" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="J5" library="con-faston" deviceset="PIN1-2" device=""/>
+<part name="Q1" library="transistor-power" deviceset="STP13NM60N" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -20499,6 +20500,7 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="J3" gate="G$1" x="187.96" y="81.28"/>
 <instance part="J4" gate="G$1" x="187.96" y="88.9"/>
 <instance part="J5" gate="G$1" x="48.26" y="60.96"/>
+<instance part="Q1" gate="T" x="81.28" y="38.1"/>
 </instances>
 <busses>
 </busses>

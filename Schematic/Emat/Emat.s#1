@@ -20466,7 +20466,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="supply2" deviceset="+12V" device=""/>
-<part name="C8" library="rcl" deviceset="C-EU" device="C1206K" value="220p 630v"/>
 <part name="R10" library="rcl" deviceset="R-US_" device="R1206" value="510"/>
 <part name="R11" library="rcl" deviceset="R-US_" device="R1206" value="510"/>
 <part name="SUPPLY2" library="supply2" deviceset="+UB" device=""/>
@@ -20490,6 +20489,7 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="J10" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="J11" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
+<part name="C9" library="rcl" deviceset="C-EU" device="075-042X103" value="220pF 1000V"/>
 </parts>
 <sheets>
 <sheet>
@@ -20526,7 +20526,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="GND7" gate="1" x="-22.86" y="73.66"/>
 <instance part="GND8" gate="1" x="-35.56" y="73.66"/>
 <instance part="SUPPLY3" gate="+12V" x="-35.56" y="96.52"/>
-<instance part="C8" gate="G$1" x="124.46" y="111.76" rot="R90"/>
 <instance part="R10" gate="G$1" x="137.16" y="111.76"/>
 <instance part="R11" gate="G$1" x="149.86" y="111.76"/>
 <instance part="SUPPLY2" gate="G$1" x="10.16" y="139.7"/>
@@ -20550,6 +20549,7 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <instance part="J10" gate="G$1" x="-20.32" y="66.04" rot="R180"/>
 <instance part="J11" gate="G$1" x="-20.32" y="58.42" rot="R180"/>
 <instance part="GND14" gate="1" x="-15.24" y="45.72"/>
+<instance part="C9" gate="G$1" x="124.46" y="111.76" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -20739,9 +20739,9 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 </net>
 <net name="N$13" class="0">
 <segment>
-<pinref part="C8" gate="G$1" pin="2"/>
 <pinref part="R10" gate="G$1" pin="1"/>
 <wire x1="129.54" y1="111.76" x2="132.08" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="C9" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$14" class="0">
@@ -20792,7 +20792,6 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 </net>
 <net name="N$16" class="0">
 <segment>
-<pinref part="C8" gate="G$1" pin="1"/>
 <wire x1="121.92" y1="111.76" x2="119.38" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="C2" gate="G$1" pin="2"/>
 <wire x1="106.68" y1="96.52" x2="111.76" y2="96.52" width="0.1524" layer="91"/>
@@ -20820,6 +20819,7 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <junction x="137.16" y="88.9"/>
 <junction x="119.38" y="88.9"/>
 <wire x1="119.38" y1="111.76" x2="119.38" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="C9" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$15" class="0">

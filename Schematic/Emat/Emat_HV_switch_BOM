@@ -1,0 +1,20 @@
+Partlist exported from D:/workspace/EMAT/POC/Schematic/Emat/Emat.sch at 4/7/2016 10:50 AM
+
+Qty Value              Device             Package            Parts                                        Description                                             MF               MPN     OC_FARNELL OC_NEWARK
+1   1K                 R-US_R1206         R1206              R8                                           RESISTOR, American symbol                                                                            
+2   1uF 16V            C-USC0805          C0805              C6, C7                                       CAPACITOR, American symbol                                                                           
+1   1uF 400V           C27/13             C27.5B13           C4                                           CAPACITOR                                                                                            
+1   220pF 1000V        C-EU075-042X103    C075-042X103       C9                                           CAPACITOR, European symbol                                                                           
+2   22K                R-US_R2512         R2512              R40, R41                                     RESISTOR, American symbol                                                                            
+5   270                R-US_R2512         R2512              R3, R4, R5, R6, R7                           RESISTOR, American symbol                                                                            
+1   3.3                R-US_R1206         R1206              R2                                           RESISTOR, American symbol                                                                            
+3   4.7n 1000V         C10/4              C10B4              C1, C2, C3                                   CAPACITOR                                                                                            
+1   47uF 400V          CPOL-USSANYO_G     SANYO-OSCON_G      C5                                           POLARIZED CAPACITOR, American symbol                                                                 
+1   51                 R-US_R1206         R1206              R1                                           RESISTOR, American symbol                                                                            
+2   510                R-US_R1206         R1206              R10, R11                                     RESISTOR, American symbol                                                                            
+2   ES3B               DIODE-SMC          SMC                D3, D4                                       DIODE                                                                                                
+2   MUR160             MUR160             DO41-10            D1, D2                                       DIODE                                                                                                
+11  PIN1-2             PIN1-2             62221              J1, J2, J3, J4, J5, J6, J7, J8, J9, J10, J11 CONN TAB FASTON BRASS .187 PCB                          TYCO ELECTRONICS 62221-1 unknown    16H2318  
+1   SMA-J502-ND        SMA-J502-ND        J502-ND            X1                                           SMA 50 Ohm End Launch Jack Receptacle - Round Contact                            unknown    unknown  
+1   STP13NM60NTO220BVH STP13NM60NTO220BVH TO220BVH           Q2                                           N-CHANNEL MOS FET                                                                                    
+1   UCC27324D          UCC27324D          SOIC127P600X175-8N U1                                           DUAL 4-A PEAK HIGH SPEED LOW- SIDE POWER MOSFET DRIVERS                                              

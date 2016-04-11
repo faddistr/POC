@@ -388,7 +388,7 @@ UsedLibrary="C:/EAGLE-7.5.0/lbr/eagle-lbr-master/eagle-lbr-master/triac.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="1592 -188 3511 869"
+Loc="0 0 1599 859"
 State=1
 Number=0
 

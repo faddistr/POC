@@ -1331,28 +1331,29 @@ http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&amp;name=A24734CT-ND
 <description>&lt;b&gt;Power Transistors&lt;/b&gt;&lt;p&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
-<package name="TO220BVH">
+<package name="TO247BV">
 <description>&lt;b&gt;Molded Package&lt;/b&gt;&lt;p&gt;
-grid 2.54 - 5.08 mm</description>
-<wire x1="4.699" y1="-4.318" x2="4.953" y2="-4.064" width="0.1524" layer="21"/>
-<wire x1="4.699" y1="-4.318" x2="-4.699" y2="-4.318" width="0.1524" layer="21"/>
-<wire x1="-4.953" y1="-4.064" x2="-4.699" y2="-4.318" width="0.1524" layer="21"/>
-<wire x1="5.08" y1="-1.143" x2="4.953" y2="-4.064" width="0.1524" layer="21"/>
-<wire x1="-4.953" y1="-4.064" x2="-5.08" y2="-1.143" width="0.1524" layer="21"/>
-<circle x="-4.4958" y="-3.7084" radius="0.254" width="0" layer="21"/>
-<pad name="G" x="-2.54" y="-2.54" drill="1.016" shape="long" rot="R90"/>
-<pad name="D" x="0" y="-6.35" drill="1.016" shape="long" rot="R90"/>
-<pad name="S" x="2.54" y="-2.54" drill="1.016" shape="long" rot="R90"/>
-<text x="1.524" y="-6.0452" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="1.524" y="-7.62" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-<rectangle x1="-5.334" y1="-0.762" x2="5.334" y2="0" layer="21"/>
-<rectangle x1="-5.334" y1="-1.27" x2="-3.429" y2="-0.762" layer="21"/>
-<rectangle x1="-3.429" y1="-1.27" x2="-1.651" y2="-0.762" layer="51"/>
-<rectangle x1="3.429" y1="-1.27" x2="5.334" y2="-0.762" layer="21"/>
-<rectangle x1="1.651" y1="-1.27" x2="3.429" y2="-0.762" layer="51"/>
-<rectangle x1="-0.508" y1="-6.35" x2="0.508" y2="-4.953" layer="51"/>
-<rectangle x1="-1.651" y1="-1.27" x2="1.651" y2="-0.762" layer="21"/>
-<rectangle x1="-0.508" y1="-4.953" x2="0.508" y2="-4.318" layer="21"/>
+grid 5.6 mm</description>
+<wire x1="-6.985" y1="-5.08" x2="6.985" y2="-5.08" width="0.1524" layer="21"/>
+<wire x1="6.985" y1="-5.08" x2="7.366" y2="-4.699" width="0.1524" layer="21"/>
+<wire x1="-6.985" y1="-5.08" x2="-7.366" y2="-4.699" width="0.1524" layer="21"/>
+<wire x1="7.366" y1="-4.699" x2="7.874" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-7.366" y1="-4.699" x2="-7.874" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="7.874" y1="-1.524" x2="7.62" y2="0" width="0.1524" layer="21"/>
+<wire x1="7.62" y1="0" x2="-7.62" y2="0" width="0.1524" layer="21"/>
+<wire x1="-7.62" y1="0" x2="-7.874" y2="-1.524" width="0.1524" layer="21"/>
+<wire x1="-7.874" y1="-1.524" x2="-6.731" y2="-1.524" width="0.0508" layer="21"/>
+<wire x1="-6.731" y1="-1.524" x2="-4.445" y2="-1.524" width="0.0508" layer="51"/>
+<wire x1="-4.445" y1="-1.524" x2="-1.27" y2="-1.524" width="0.0508" layer="21"/>
+<wire x1="-1.27" y1="-1.524" x2="1.143" y2="-1.524" width="0.0508" layer="51"/>
+<wire x1="1.143" y1="-1.524" x2="4.445" y2="-1.524" width="0.0508" layer="21"/>
+<wire x1="4.445" y1="-1.524" x2="6.731" y2="-1.524" width="0.0508" layer="51"/>
+<wire x1="6.731" y1="-1.524" x2="7.874" y2="-1.524" width="0.0508" layer="21"/>
+<pad name="G" x="-5.588" y="-2.921" drill="1.4986" shape="long" rot="R90"/>
+<pad name="D" x="0" y="-2.921" drill="1.4986" shape="long" rot="R90"/>
+<pad name="S" x="5.588" y="-2.921" drill="1.4986" shape="long" rot="R90"/>
+<text x="-7.62" y="-6.858" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-1.524" y="-6.858" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 </package>
 </packages>
 </library>
@@ -2772,7 +2773,7 @@ design rules under a new name.</description>
 <attribute name="MF" value="TYCO ELECTRONICS" x="81.28" y="30.48" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="16H2318" x="81.28" y="30.48" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="Q2" library="transistor-power" package="TO220BVH" value="STP13NM60NTO220BVH" x="74.93" y="50.8" rot="R90"/>
+<element name="Q2" library="transistor-power" package="TO247BV" value="STP13NM60NTO247BV" x="74.93" y="50.8" rot="R90"/>
 <element name="R1" library="rcl" package="R1206" value="10K" x="55.88" y="46.99" rot="R90"/>
 <element name="R10" library="rcl" package="R1206" value="510" x="88.9" y="27.94" rot="R90"/>
 <element name="R11" library="rcl" package="R1206" value="510" x="88.9" y="34.29" rot="R90"/>
@@ -2856,7 +2857,7 @@ design rules under a new name.</description>
 <signal name="N$3">
 <contactref element="R2" pad="2"/>
 <contactref element="Q2" pad="G"/>
-<wire x1="71.272" y1="48.26" x2="77.47" y2="48.26" width="1.27" layer="1"/>
+<wire x1="71.272" y1="48.26" x2="77.851" y2="45.212" width="1.27" layer="1"/>
 </signal>
 <signal name="N$4">
 <contactref element="C2" pad="1"/>
@@ -2867,7 +2868,7 @@ design rules under a new name.</description>
 <wire x1="80.27" y1="67.31" x2="86.36" y2="67.31" width="2.54" layer="1"/>
 <wire x1="86.36" y1="67.31" x2="86.36" y2="60.96" width="2.54" layer="1"/>
 <wire x1="86.36" y1="60.96" x2="86.36" y2="54.61" width="2.54" layer="1"/>
-<wire x1="81.28" y1="50.8" x2="82.55" y2="50.8" width="2.54" layer="1"/>
+<wire x1="77.851" y1="50.8" x2="82.55" y2="50.8" width="2.54" layer="1"/>
 <wire x1="82.55" y1="50.8" x2="86.36" y2="54.61" width="2.54" layer="1"/>
 </signal>
 <signal name="GND">
@@ -2896,8 +2897,8 @@ design rules under a new name.</description>
 <wire x1="26.67" y1="39.624" x2="26.67" y2="50.8" width="2.54" layer="1"/>
 <wire x1="26.67" y1="50.8" x2="38.1" y2="59.69" width="2.54" layer="1"/>
 <wire x1="38.1" y1="59.69" x2="48.26" y2="59.69" width="2.54" layer="1"/>
-<wire x1="68.58" y1="59.69" x2="74.93" y2="53.34" width="2.54" layer="1"/>
-<wire x1="74.93" y1="53.34" x2="77.47" y2="53.34" width="2.54" layer="1"/>
+<wire x1="68.58" y1="59.69" x2="72.39" y2="56.515" width="2.54" layer="1"/>
+<wire x1="72.39" y1="56.515" x2="77.851" y2="56.388" width="2.54" layer="1"/>
 <wire x1="26.67" y1="39.624" x2="29.204" y2="39.63" width="2.54" layer="1"/>
 <wire x1="29.204" y1="39.63" x2="33.02" y2="39.63" width="2.54" layer="1"/>
 <wire x1="61.595" y1="46.355" x2="61.595" y2="42.545" width="0.6096" layer="1"/>
@@ -2937,8 +2938,8 @@ design rules under a new name.</description>
 <vertex x="26.67" y="50.8"/>
 <vertex x="38.1" y="59.69"/>
 <vertex x="67.31" y="59.69"/>
-<vertex x="74.93" y="53.34"/>
-<vertex x="74.93" y="52.07"/>
+<vertex x="74.93" y="55.88"/>
+<vertex x="72.39" y="52.07"/>
 <vertex x="63.5" y="52.07"/>
 <vertex x="61.595" y="48.895"/>
 <vertex x="61.595" y="40.64"/>

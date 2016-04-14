@@ -80,7 +80,10 @@ public class Main extends Application {
      
 
     
-    
+    public void setWidthText(String text)
+    {
+            controller.widthText.setText(text);
+    }
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -110,7 +113,7 @@ public class Main extends Application {
         saveFileChooser.setTitle("Choose the data file");
         saveFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Data file", "*.la140"));
         saveFileChooser.setInitialDirectory(new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile());
-        
+        controller.widthText.setText("0.0");
         FXReScheduler.runAsync(() -> {
             try {
                 device = new DDS140();
@@ -196,6 +199,12 @@ public class Main extends Application {
                 } catch (InterruptedException ignored) {
                 }
             }
+            
+            if (controller.gController != null)
+            {
+                controller.gController.close();
+            }
+            
             Platform.exit();
         });
     }

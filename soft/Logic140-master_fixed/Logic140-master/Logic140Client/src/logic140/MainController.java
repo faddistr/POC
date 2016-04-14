@@ -57,6 +57,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -68,6 +69,8 @@ public class MainController {
     @FXML
     private URL location;
 
+    @FXML
+    Text widthText;
     @FXML
      Pane ch3Handle;
 
@@ -527,7 +530,7 @@ public class MainController {
     int waveZoomChangePivotX = 0;
     final LogicAnalyzerController laController = new LogicAnalyzerController(this);
     final OscilloscopeController oController = new OscilloscopeController(this);
-    final Generator              gController = new Generator();
+    final public Generator              gController = new Generator();
     private IController iController = laController;
 
     final BooleanProperty goButton2Enable = new BooleanPropertyBase() {

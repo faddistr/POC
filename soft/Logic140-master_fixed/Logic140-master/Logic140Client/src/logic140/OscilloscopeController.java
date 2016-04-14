@@ -45,6 +45,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
+import java.util.Arrays;
 
 /**
  *
@@ -142,7 +143,7 @@ public class OscilloscopeController implements MainController.IController {
     @Override
     public void postInitControls(Stage stage) {
         wave = new Canvas(mController.oWavePane.getBoundsInLocal().getWidth(), mController.oWavePane.getBoundsInLocal().getHeight());
-        setupChWaveHandle(handleCh1, ch1Zero, Color.YELLOW, -waveHandleWidth-2, axisXCh1);
+        setupChWaveHandle(handleCh1, ch1Zero, Color.GREEN, -waveHandleWidth-2, axisXCh1);
         setupChWaveHandle(handleCh2, ch2Zero, Color.CYAN, 0, axisXCh2);
         mController.oWavePane.getChildren().addAll(wave, handleCh1, handleCh2, axisXCh1, axisXCh2);
         
@@ -215,6 +216,8 @@ public class OscilloscopeController implements MainController.IController {
         mController.updateWaveArrays();
     }
     
+
+    
     @Override
     public void redrawWaves(int firstSampleIndex) {
         if (mController.zoomFactor < 3./65536)
@@ -233,6 +236,10 @@ public class OscilloscopeController implements MainController.IController {
         Data.DataIterator d = dataIterator;
         if (d.init(sampleIndexToStart)) {
             final double xInc = 1/mController.zoomFactor;
+            if (xInc > 10)
+            {
+                return;
+            }
             double x = firstSampleIndex > 0 ? -xInc : 0;
             int xLast = -1;
             final GraphicsContext gc = wave.getGraphicsContext2D();
@@ -253,32 +260,6 @@ public class OscilloscopeController implements MainController.IController {
             gc.stroke();
             gc.setLineWidth(1);
             do {
-                if (d.atLostData()) {
-                    int lostLength = d.getLostDataLength();
-                    int xStart = (int)(x + xInc * (d.getRemainingLostLength() - lostLength));
-                    int lostWidth = (int)(xInc * lostLength);
-                    xLast = xStart+lostWidth-1;
-                    gc.save();
-                    gc.setStroke(Color.RED);
-                    if (xLast - xStart <= 5) {
-                        gc.strokeLine(xStart, (y0+y1)/2, xLast, (y0+y1)/2);
-                    } else {
-                        gc.beginPath();
-                        gc.rect(xStart, y0, lostWidth, y1-y0);
-                        gc.clip();
-                        final int dashPeriod = 20;
-                        for (int ix = xStart; ix < xLast && ix < windowWidth; ix += dashPeriod) {
-                            if (ix + dashPeriod > 0) {
-                                gc.moveTo(ix, y1);
-                                gc.lineTo(ix + dashPeriod, y0);
-                            }
-                        }
-                        gc.stroke();
-                    }
-                    gc.restore();
-                    x = xLast; // fraction part lost, might be a problem
-                    d.skipLostData();
-                } else {
                     byte[] data1 = d.getData1();
                     byte[] data2 = d.getData2();
                     int o = d.getDataStart();
@@ -289,6 +270,9 @@ public class OscilloscopeController implements MainController.IController {
                     final double[] wavesY2 = mController.waves[3];
                     int wavePoints1 = 0;
                     int wavePoints2 = 0;
+                    if(d.getWidth1() > 10){
+                        mController.widthText.setText(Double.toString(d.getWidth1())); 
+                    }
                     if (xInc >= 1.) {
                         do {
                             wavesX1[wavePoints1] = x;
@@ -303,16 +287,28 @@ public class OscilloscopeController implements MainController.IController {
                     } else {
                         if (ch1Enable) {
                             wavePoints1 = drawCompressedWave(data1, o, wavesX1, wavesY1, xInc, dataLeft, x, y0, y1, h, xLast);
+                            wavesY1[0] = wavesY1[1];
                         }
                         if (ch2Enable) {
                             wavesX2 = mController.waves[2];
                             wavePoints2 = drawCompressedWave(data2, o, wavesX2, wavesY2, xInc, dataLeft, x, y0, y1, h, xLast);
                         }
-                        xLast = (int) (ch1Enable ? wavesX1[wavePoints1-1] : wavesX2[wavePoints2-1]);
-                        x = xLast;
                     }
-                    if (ch1Enable) {
-                        gc.setStroke(Color.YELLOW);
+                    
+                    if(wavePoints1 > 0){
+                        xLast = (int)wavesX1[wavePoints1-1];
+                    } else{
+                        x = 0;
+                    }
+                    
+                    if (xLast < mController.waveWindowWidth) {
+                        x = xLast; 
+                    } else {
+                        x = 0;
+                    }
+                    
+                    if ((ch1Enable) && (wavePoints1 > 0))  {
+                        gc.setStroke(Color.GREEN);
                         final double ch1ZeroLevel = ch1Zero.doubleValue()*windowHeight;
                         gc.translate(0, ch1ZeroLevel);
                         gc.strokePolyline(wavesX1, wavesY1, wavePoints1);
@@ -325,64 +321,46 @@ public class OscilloscopeController implements MainController.IController {
                         gc.strokePolyline(wavesX2, wavesY2, wavePoints2);
                         gc.translate(0, -ch2ZeroLevel);
                     }
+         
                     d.skipData();
-                } // if else at lost data
             } while (x <= windowWidth && d.hasMoreData());
             gc.translate(-0.5, -0.5);
         }        
         mController.timeValueText.setText(dataRef.sampleToTime(firstSampleIndex, mController.timeUnits));
     }
-    
+    int min = 0;
+    int max = 0;
+    int cur = 0;
     private int drawCompressedWave(byte[] data, int o, double[] wavesX, double[] wavesY, 
             double xInc, int dataLeft, double x, int y0, int y1, double h, int xLast) {
-        int prevLast = data[o];
-        int prevMin = prevLast;
-        int prevMax = prevLast;
-        int min = prevLast;
-        int max = prevLast;
         int wavePoints = 0;
-        int cur;
-        wavesX[wavePoints] = xLast;
-        wavesY[wavePoints++] = y1 - prevLast*h;
+        int xCur = (int)x;
+        xLast = xCur;
+        int k=0;
         do {
-            int xCur = (int)x;
-            cur = data[o++] & 0xff;
-            if (xCur == xLast && wavePoints < wavesX.length && dataLeft > 1) {
-                if (cur < min)
-                    min = cur;
-                if (cur > max)
-                    max = cur;
+            if (xCur == xLast) {
+                cur += data[o++] & 0xff;
+                dataLeft--;    
+                k++;
             } else {
-                if (prevMax <= min) { // is true for the first point
-                    if (prevLast != prevMax) {
-                        wavesX[wavePoints] = xLast;
-                        wavesY[wavePoints++] = y1 - prevMax*h;
-                    }
-                    if (min != max) {
-                        wavesX[wavePoints] = xCur;
-                        wavesY[wavePoints++] = y1 - min*h;
-                    }
-                    wavesX[wavePoints] = xCur;
-                    wavesY[wavePoints++] = y1 - (prevLast = max)*h;
-                } else {
-                    if (prevMin >= max && prevLast != prevMin) {
-                        wavesX[wavePoints] = xLast;
-                        wavesY[wavePoints++] = y1 - prevMin*h;
-                    }
-                    if (min != max) {
-                        wavesX[wavePoints] = xCur;
-                        wavesY[wavePoints++] = y1 - max*h;
-                    }
-                    wavesX[wavePoints] = xCur;
-                    wavesY[wavePoints++] = y1 - (prevLast = min)*h;
-                }
-                prevMin = min;
-                prevMax = max;
-                min = max = cur;
+                wavesX[wavePoints] = xLast;
+                wavesY[wavePoints++] = y1 - (cur/k)*h;
+                k = 1;
+                cur = data[o++] & 0xff;
+                dataLeft--;
                 xLast = xCur;
             }
             x += xInc;
-        } while (x <= mController.waveWindowWidth && wavePoints < wavesX.length && --dataLeft > 0);
+            xCur=(int)x;
+        } while (x <= mController.waveWindowWidth && wavePoints < wavesX.length && dataLeft > 0);
+        
+        if (wavePoints == 0) 
+        {
+            wavesX[wavePoints] = xCur;
+            wavesY[wavePoints++] = y1 - (cur/k)*h;
+        }
+        
+        
         return wavePoints;
     }
 

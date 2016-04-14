@@ -241,7 +241,7 @@ public class LogicAnalyzerController implements MainController.IController {
                 gc.setStroke(Color.YELLOW);
             }
             do {
-                if (d.atLostData()) {
+               /* if (d.atLostData()) {
                     int lostLength = d.getLostDataLength();
                     int xStart = (int)(x + xInc * (d.getRemainingLostLength() - lostLength));
                     int lostWidth = (int)(xInc * lostLength);
@@ -269,7 +269,7 @@ public class LogicAnalyzerController implements MainController.IController {
                     }
                     x = xLast; // fraction part lost, might be a problem
                     d.skipLostData();
-                } else {
+                } else { */
                     byte[] data = d.getData2();
                     int o = d.getDataStart();
                     int dataLeft = d.getRemainingDataLength();
@@ -325,7 +325,7 @@ public class LogicAnalyzerController implements MainController.IController {
                         }
                     }
                     d.skipData();
-                } // if else at lost data
+             //   } // if else at lost data
             } while (x <= mController.waveWindowWidth && d.hasMoreData());
             for (int i = 0; i < 8; i++) {
                 GraphicsContext gc = waves[i].getGraphicsContext2D();

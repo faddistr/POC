@@ -48,6 +48,9 @@ TIM_HandleTypeDef htim6;
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim1;
 static uint32_t timer_counter;
+static uint32_t last_offset=13702;
+static uint32_t last_width=34;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -82,8 +85,6 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 	eq_queue_element_s ev;
-	static uint32_t last_offset=1;
-	static uint32_t last_width=1001;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -103,7 +104,10 @@ int main(void)
   MX_NVIC_Init();
 
   /* USER CODE BEGIN 2 */
-  MX_TIM1_Init(34034, 34);
+//  MX_TIM1_Init(34034, 34);
+  MX_TIM1_Init(last_offset+last_width, last_offset);
+//  MX_TIM1_Init(13701, 13702);
+
 	/* Tell system that you will use PD0 for EXTI_Line0 */
   /* Enable and set EXTI Line0 Interrupt to the lowest priority */
 

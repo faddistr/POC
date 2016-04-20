@@ -313,6 +313,9 @@ public class MainController {
     
     @FXML
     TextField comPortE;
+        
+    @FXML
+    TextField windowE;
     
     @FXML
     void handleTimeValueTextAction(ActionEvent event) {
@@ -444,6 +447,21 @@ public class MainController {
           Main.error(ex, false);
       }
       widthE.setText(Integer.toString(gController.getWidth()));
+    }
+    
+    @FXML
+    void windowEAct(ActionEvent event) {
+            try 
+            {
+               if (oController.setWindow(Integer.parseInt(windowE.getText())) == false)
+               {
+                   Main.error("Failed to set window width", false);
+               }
+            }
+            catch (NumberFormatException ex) 
+            {
+                Main.error(ex, false);
+            }
     }
     
     @FXML

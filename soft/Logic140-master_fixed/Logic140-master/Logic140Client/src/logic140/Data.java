@@ -65,6 +65,22 @@ public class Data {
         final double pulseWidth;
         final int bufLength;
         
+        public byte[] filterBuffer(byte[] buff, int k) {
+            int itc =  buff.length - k;
+            byte[] ret = new byte[itc];
+            int l = 0;
+            long acc = 0;
+            
+            for (int i=0; i < itc; i++) {
+                acc = 0;
+                for (int j=0; j < k; j++){
+                    acc += buff[i+j];
+                }
+                ret[l++] = (byte)(acc / k);
+            }
+            
+            return ret;
+        }
         
         private double analizeBuffer2(byte[] buff) {
             final int level = 140;
@@ -89,11 +105,10 @@ public class Data {
         {
             int k1 = -1;
             int k2 = 0;
-            int max = -1;
+            int mmax = -1;
             long acum = 0;
             long p = 0;
             int mlev = 0;
-            int alev = 0;
 
             for (int i = 1; i < buff.length; i++ ){
                 acum+= buff[i] & 0xff;
@@ -111,9 +126,8 @@ public class Data {
                         k2 = i;
                         int r = k2 - k1;
                         k1 = -1;
-                        if (r > max) {
-                            max = r;
-                            alev = mlev;
+                        if (r > mmax) {
+                            mmax = r;
                         }
                     }
                 }
@@ -206,10 +220,15 @@ public class Data {
             return packet.buf2;
         }
         
+        
         byte[] getData1() {
             if (atLostData())
                 throw new IllegalStateException();
             return packet.buf1;
+        }
+        
+        byte[] getFilterData1(int k) {
+            return packet.filterBuffer(packet.buf1, k);
         }
         
         int getDataStart() {

@@ -62,7 +62,65 @@ public class Data {
         final byte maxCh1;
         final byte minCh2;
         final byte maxCh2;
+        final double pulseWidth;
         final int bufLength;
+        
+        
+        private double analizeBuffer2(byte[] buff) {
+            final int level = 140;
+            int k1 = -1;
+            int r = 0;
+            for (int i=0; i < buff.length; i++){
+                int cur = buff[i] & 0xff;
+                if ((cur > level) && (k1 == -1)) {
+                    k1 = i;
+                } else {
+                    if ((k1 != -1) && (cur < level)) {
+                        r = i - k1;
+                        break;
+                    }
+                }
+            }
+            
+            return r;
+        }
+        
+        private double analizeBuffer(byte[] buff) 
+        {
+            int k1 = -1;
+            int k2 = 0;
+            int max = -1;
+            long acum = 0;
+            long p = 0;
+            int mlev = 0;
+            int alev = 0;
+
+            for (int i = 1; i < buff.length; i++ ){
+                acum+= buff[i] & 0xff;
+            }
+
+            p = acum / buff.length;
+
+            for (int i = 0; i < buff.length; i++) {
+                int cur = buff[i] & 0xff;
+                if ((cur > p) && (k1 == -1)) {
+                    k1 = i;
+                    mlev = cur;
+                } else {
+                    if ((cur <= mlev) && (k1 != -1)) {
+                        k2 = i;
+                        int r = k2 - k1;
+                        k1 = -1;
+                        if (r > max) {
+                            max = r;
+                            alev = mlev;
+                        }
+                    }
+                }
+            }
+
+            return max;
+        }
         
         private Packet(byte[] buf1, byte[] buf2, int bufLength, int trailingGapLength, 
                 byte min, byte max, byte minCh1, byte maxCh1, byte minCh2, byte maxCh2) {
@@ -76,11 +134,12 @@ public class Data {
             this.maxCh1 = maxCh1;
             this.minCh2 = minCh2;
             this.maxCh2 = maxCh2;
+            this.pulseWidth = analizeBuffer2(buf1);
         }
     }
     
     class DataIterator {
-        Packet packet;
+        Packet packet = null;
         int index;
         int sample;
         int packetSample;
@@ -100,6 +159,11 @@ public class Data {
                 throw new IndexOutOfBoundsException(""+startSample+" > "+totalNumSamples);
             index = 0;
             packetSample = 0;
+         /*   synchronized (data) {
+                if (packet!=null) {
+                    data.remove(packet);
+                }
+            }*/
             packet = null;
             while (index < data.size()) {
                 packet = data.get(index);
@@ -152,6 +216,10 @@ public class Data {
             if (atLostData())
                 throw new IllegalStateException();
             return sample;
+        }
+        
+        double getWidth1() {
+            return packet.pulseWidth;
         }
         
         boolean hasMoreData() {
@@ -214,7 +282,9 @@ public class Data {
                 if (packet.trailingGapLength > 0)
                     sample = packet.bufLength;
                 else 
+                {
                     loadNextPacket();
+                }
             } else
                 throw new IllegalStateException();
         }
@@ -302,14 +372,24 @@ public class Data {
             d2[i] = val2;
         }
         Main.device.releaseDataBuffer(packet);
+        boolean isupd = true;
         if (!lead || !trim || min != max) {
             synchronized (data) {
+                if(data.size() > 100)
+                {
+                    data.remove(0);
+//                    isupd = false;
+                } else {
+                    totalNumSamples += buf.capacity() / 2 + packetTrailingGap;
+                    totalNumDataSamples += buf.capacity() / 2;
+                }
                 data.add(new Packet(d1, d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2));
-                totalNumSamples += buf.capacity() / 2 + packetTrailingGap;
-                totalNumDataSamples += buf.capacity() / 2;
+                
             }
             lead = false;
-            Platform.runLater(() -> Main.controller.updateWaves(totalNumSamples, totalNumSamples));
+            if (isupd){
+                Platform.runLater(() -> Main.controller.updateWaves(totalNumSamples, totalNumSamples));
+            }
         }
     }
     

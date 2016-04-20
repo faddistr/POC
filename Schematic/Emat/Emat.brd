@@ -2812,7 +2812,7 @@ design rules under a new name.</description>
 <attribute name="OC_FARNELL" value="1462926" x="38.1" y="52.07" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="MF" value="MOLEX" x="38.1" y="52.07" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
-<element name="R9" library="rcl" package="R1206" value="510" x="40.64" y="45.72"/>
+<element name="R9" library="rcl" package="R1206" value="100" x="40.64" y="45.72"/>
 <element name="X3" library="con-molex" package="22-23-2021" value="22-23-2021" x="49.53" y="43.18" rot="MR0">
 <attribute name="OC_NEWARK" value="25C3832" x="49.53" y="43.18" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="MPN" value="22-23-2021" x="49.53" y="43.18" size="1.778" layer="28" rot="MR0" display="off"/>

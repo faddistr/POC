@@ -16579,7 +16579,7 @@ Based on the following previous libraries:
 </classes>
 <parts>
 <part name="D1" library="diode" deviceset="DIODE-" device="DO201-15" value="1.5KE15A"/>
-<part name="D2" library="diode" deviceset="DIODE-" device="DO201-15" value="1.5KE15A"/>
+<part name="D2" library="diode" deviceset="DIODE-" device="DO201-15" value="1.5KE300A"/>
 <part name="R1" library="resistor" deviceset="R-US_" device="R1206" value="10K"/>
 <part name="OK1" library="optocoupler" deviceset="PC817" device=""/>
 <part name="C1" library="rcl" deviceset="C-EU" device="C0805" value="470nF"/>
@@ -16673,7 +16673,7 @@ Based on the following previous libraries:
 <part name="R26" library="resistor" deviceset="R-US_" device="R1206" value="220K"/>
 <part name="P-3" library="supply1" deviceset="V-" device=""/>
 <part name="P+3" library="supply1" deviceset="V+" device=""/>
-<part name="R27" library="resistor" deviceset="R-US_" device="R1206" value="510"/>
+<part name="R27" library="resistor" deviceset="R-US_" device="R1206" value="100"/>
 </parts>
 <sheets>
 <sheet>

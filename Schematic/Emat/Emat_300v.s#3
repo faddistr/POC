@@ -16673,6 +16673,7 @@ Based on the following previous libraries:
 <part name="R26" library="resistor" deviceset="R-US_" device="R1206" value="220K"/>
 <part name="P-3" library="supply1" deviceset="V-" device=""/>
 <part name="P+3" library="supply1" deviceset="V+" device=""/>
+<part name="R27" library="resistor" deviceset="R-US_" device="R1206" value="510"/>
 </parts>
 <sheets>
 <sheet>
@@ -16761,8 +16762,8 @@ Gap: 145.47 um
 <instance part="GND18" gate="1" x="53.34" y="-53.34"/>
 <instance part="C13" gate="G$1" x="-15.24" y="-45.72"/>
 <instance part="GND19" gate="1" x="-15.24" y="-53.34"/>
-<instance part="J1" gate="G$1" x="-27.94" y="-7.62" rot="R180"/>
-<instance part="J2" gate="G$1" x="-27.94" y="-12.7" rot="R180"/>
+<instance part="J1" gate="G$1" x="-33.02" y="-7.62" rot="R180"/>
+<instance part="J2" gate="G$1" x="-33.02" y="-12.7" rot="R180"/>
 <instance part="R21" gate="G$1" x="177.8" y="20.32" rot="R90"/>
 <instance part="R22" gate="G$1" x="187.96" y="20.32" rot="R90"/>
 <instance part="C14" gate="G$1" x="177.8" y="7.62"/>
@@ -16788,6 +16789,7 @@ Gap: 145.47 um
 <instance part="R26" gate="G$1" x="231.14" y="0" rot="MR90"/>
 <instance part="P-3" gate="1" x="231.14" y="-7.62"/>
 <instance part="P+3" gate="1" x="231.14" y="20.32"/>
+<instance part="R27" gate="G$1" x="-22.86" y="-7.62"/>
 </instances>
 <busses>
 </busses>
@@ -17183,18 +17185,11 @@ Gap: 145.47 um
 <junction x="-15.24" y="-40.64"/>
 </segment>
 </net>
-<net name="N$18" class="0">
-<segment>
-<pinref part="OK2" gate="A" pin="A"/>
-<pinref part="J1" gate="G$1" pin="1"/>
-<wire x1="-22.86" y1="-7.62" x2="-17.78" y2="-7.62" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$19" class="0">
 <segment>
 <pinref part="OK2" gate="A" pin="C"/>
 <pinref part="J2" gate="G$1" pin="1"/>
-<wire x1="-22.86" y1="-12.7" x2="-17.78" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="-27.94" y1="-12.7" x2="-17.78" y2="-12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$20" class="0">
@@ -17320,6 +17315,18 @@ Gap: 145.47 um
 <pinref part="R25" gate="G$1" pin="1"/>
 <pinref part="R26" gate="G$1" pin="2"/>
 <wire x1="231.14" y1="5.08" x2="231.14" y2="7.62" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$18" class="0">
+<segment>
+<pinref part="OK2" gate="A" pin="A"/>
+<pinref part="R27" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="N$23" class="0">
+<segment>
+<pinref part="R27" gate="G$1" pin="1"/>
+<pinref part="J1" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>

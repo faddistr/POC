@@ -7,6 +7,8 @@ typedef enum QUEUE_EVENT_TAG {
 	TIMER2_EXPIRED,
 	CMD_WIDTH,
 	CMD_OFFSET,
+	CMD_HV_ON,
+	CMD_HV_OFF
 } eq_queue_event_e;
 
 typedef union QUEUE_PARAM_TAG {

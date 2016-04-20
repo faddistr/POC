@@ -13,7 +13,7 @@ extern void USBD_CDC_TxAlways(const uint8_t *buf, uint32_t len);
 static microrl_t rl;
 static microrl_t * prl = &rl;
 static unsigned curr_cmd_param;
-static enum {COMMAND_EMPTY, COMMAND_WIDTH, COMMAND_OFFSET} curr_cmd = COMMAND_EMPTY;
+static enum {COMMAND_EMPTY, COMMAND_WIDTH, COMMAND_OFFSET, COMMAND_HV_ON, COMMAND_HV_OFF} curr_cmd = COMMAND_EMPTY;
 
 //*****************************************************************************
 //dummy function, no need on linux-PC
@@ -51,7 +51,6 @@ void print (const char * str)
 #define _CMD_HELP  "help"
 #define _CMD_CLEAR "clear"
 #define _CMD_LIST  "list"
-#define _CMD_LISP  "lisp" // for demonstration completion on 'l + <TAB>'
 #define _CMD_NAME  "name"
 #define _CMD_VER   "version"
 // sub commands for version command
@@ -59,13 +58,20 @@ void print (const char * str)
 	#define _SCMD_DEMO "demo"
 #define _CMD_WIDTH "width"
 #define _CMD_OFFSET "offset"
+#define _CMD_HV  "hv" //
+// sub commands for HV command
+	#define _SCMD_SWITCH_ON  "on"
+	#define _SCMD_SWITCH_OFF "off"
+
 #define _NUM_OF_CMD 8
 #define _NUM_OF_VER_SCMD 2
+#define _NUM_OF_SWITCH_SCMD 2
 
 //available  commands
-char * keyworld [] = {_CMD_HELP, _CMD_CLEAR, _CMD_LIST, _CMD_NAME, _CMD_VER, _CMD_LISP};
+char * keyworld [] = {_CMD_HELP, _CMD_CLEAR, _CMD_LIST, _CMD_NAME, _CMD_VER, _CMD_HV};
 // version subcommands
 char * ver_keyworld [] = {_SCMD_MRL, _SCMD_DEMO};
+char * switch_keyworld [] = {_SCMD_SWITCH_ON, _SCMD_SWITCH_OFF};
 
 // array for comletion
 char * compl_world [_NUM_OF_CMD + 1];
@@ -89,8 +95,9 @@ void print_help ()
 	print ("\tclear - clear screen\n\r");
 	print ("\tlist  - list all commands in tree\n\r");
 	print ("\tname [string] - print 'name' value if no 'string', set name value to 'string' if 'string' present\n\r");
-	print ("\twidth {width} - set pulse width, ms\n\r");
-	print ("\tlisp - dummy command for demonstation auto-completion, while inputed 'l+<TAB>'\n\r");
+	print ("\toffset {offset} - set pulse offset, us\n\r");
+	print ("\twidth {width} - set pulse width, us\n\r");
+	print ("\thv {on | off}- +300V power supply on off\n\r");
 }
 
 //*****************************************************************************
@@ -156,6 +163,21 @@ int execute (int argc, const char * const * argv)
 			} else {
 				print ("offset needs 1 parametr, see help\n\r");
 			}
+		} else if (strcmp (argv[i], _CMD_HV) == 0) {
+			if (++i < argc) {
+				if (strcmp (argv[i], _SCMD_SWITCH_ON) == 0) {
+					curr_cmd = COMMAND_HV_ON;
+					print ("\n\r");
+				} else if (strcmp (argv[i], _SCMD_SWITCH_OFF) == 0) {
+					curr_cmd = COMMAND_HV_OFF;
+					print ("\n\r");
+				} else {
+					print ((char*)argv[i]);
+					print (" wrong argument, see help\n\r");
+				}
+			} else {
+				print ("version needs 1 parametr, see help\n\r");
+			}
 		} else {
 			print ("command: '");
 			print ((char*)argv[i]);
@@ -187,11 +209,18 @@ char ** complet (int argc, const char * const * argv)
 				compl_world [j++] = keyworld [i];
 			}
 		}
-	}	else if ((argc > 1) && (strcmp (argv[0], _CMD_VER)==0)) { // if command needs subcommands
+	} else if ((argc > 1) && (strcmp (argv[0], _CMD_VER)==0)) { // if command needs subcommands
 		// iterate through subcommand for command _CMD_VER array
 		for (int i = 0; i < _NUM_OF_VER_SCMD; i++) {
 			if (strstr (ver_keyworld [i], argv [argc-1]) == ver_keyworld [i]) {
 				compl_world [j++] = ver_keyworld [i];
+			}
+		}
+	} else if ((argc > 1) && (strcmp (argv[0], _CMD_HV)==0)) { // if command needs subcommands
+		// iterate through subcommand for command _CMD_SWITCH array
+		for (int i = 0; i < _NUM_OF_SWITCH_SCMD; i++) {
+			if (strstr (switch_keyworld [i], argv [argc-1]) == switch_keyworld [i]) {
+				compl_world [j++] = switch_keyworld [i];
 			}
 		}
 	} else { // if there is no token in cmdline, just print all available token
@@ -221,13 +250,18 @@ void TERM_Task(void)
 	case COMMAND_WIDTH:
 		param.uiParam = curr_cmd_param;
 		EQ_PutEventParam(CMD_WIDTH, param);
-		curr_cmd = COMMAND_EMPTY;
 		break;
 	case COMMAND_OFFSET:
 		param.uiParam = curr_cmd_param;
 		EQ_PutEventParam(CMD_OFFSET, param);
-		curr_cmd = COMMAND_EMPTY;
+		break;
+	case COMMAND_HV_ON:
+		EQ_PutEvent(CMD_HV_ON);
+		break;
+	case COMMAND_HV_OFF:
+		EQ_PutEvent(CMD_HV_OFF);
 		break;
 	}
+	curr_cmd = COMMAND_EMPTY;
 }
 

@@ -20442,9 +20442,9 @@ Source: www.johnsoncomponents.com .. J502-ND.pdf</description>
 <part name="Q2" library="transistor-power" deviceset="STP13NM60N" device="TO220BVH" value="STP13NM60NTO220BVH"/>
 <part name="R40" library="rcl" deviceset="R-US_" device="R2512" value="22K"/>
 <part name="R41" library="rcl" deviceset="R-US_" device="R2512" value="22K"/>
-<part name="C1" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n"/>
-<part name="C2" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n"/>
-<part name="C3" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n"/>
+<part name="C1" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n 1000V"/>
+<part name="C2" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n 1000V"/>
+<part name="C3" library="capacitor-wima" deviceset="C" device="10/4" value="4.7n 1000V"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="D1" library="diode" deviceset="MUR160" device=""/>
 <part name="D2" library="diode" deviceset="MUR160" device=""/>

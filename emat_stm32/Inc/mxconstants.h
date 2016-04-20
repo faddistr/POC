@@ -40,6 +40,8 @@
 
 #define Input_interrupt_pin_Pin GPIO_PIN_1
 #define Input_interrupt_pin_GPIO_Port GPIOA
+#define HV_ON_OFF_Pin GPIO_PIN_2
+#define HV_ON_OFF_GPIO_Port GPIOA
 #define Interrupt_trigger_pin_Pin GPIO_PIN_3
 #define Interrupt_trigger_pin_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */

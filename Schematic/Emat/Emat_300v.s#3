@@ -16669,6 +16669,10 @@ Based on the following previous libraries:
 <part name="J5" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="J6" library="con-faston" deviceset="PIN1-2" device=""/>
 <part name="GND21" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="R25" library="resistor" deviceset="R-US_" device="R1206" value="220K"/>
+<part name="R26" library="resistor" deviceset="R-US_" device="R1206" value="220K"/>
+<part name="P-3" library="supply1" deviceset="V-" device=""/>
+<part name="P+3" library="supply1" deviceset="V+" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -16780,6 +16784,10 @@ Gap: 145.47 um
 <instance part="J5" gate="G$1" x="-27.94" y="-40.64" rot="R180"/>
 <instance part="J6" gate="G$1" x="-27.94" y="-48.26" rot="R180"/>
 <instance part="GND21" gate="1" x="-22.86" y="-53.34"/>
+<instance part="R25" gate="G$1" x="231.14" y="12.7" rot="MR90"/>
+<instance part="R26" gate="G$1" x="231.14" y="0" rot="MR90"/>
+<instance part="P-3" gate="1" x="231.14" y="-7.62"/>
+<instance part="P+3" gate="1" x="231.14" y="20.32"/>
 </instances>
 <busses>
 </busses>
@@ -17268,6 +17276,10 @@ Gap: 145.47 um
 <pinref part="P-1" gate="1" pin="V-"/>
 <wire x1="2.54" y1="60.96" x2="2.54" y2="55.88" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="R26" gate="G$1" pin="1"/>
+<pinref part="P-3" gate="1" pin="V-"/>
+</segment>
 </net>
 <net name="V+" class="0">
 <segment>
@@ -17297,6 +17309,17 @@ Gap: 145.47 um
 <pinref part="P+2" gate="1" pin="V+"/>
 <wire x1="-7.62" y1="106.68" x2="-7.62" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="C"/>
+</segment>
+<segment>
+<pinref part="R25" gate="G$1" pin="2"/>
+<pinref part="P+3" gate="1" pin="V+"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="R25" gate="G$1" pin="1"/>
+<pinref part="R26" gate="G$1" pin="2"/>
+<wire x1="231.14" y1="5.08" x2="231.14" y2="7.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

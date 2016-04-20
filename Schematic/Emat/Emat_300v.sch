@@ -16673,7 +16673,7 @@ Based on the following previous libraries:
 <part name="R26" library="resistor" deviceset="R-US_" device="R1206" value="220K"/>
 <part name="P-3" library="supply1" deviceset="V-" device=""/>
 <part name="P+3" library="supply1" deviceset="V+" device=""/>
-<part name="R27" library="resistor" deviceset="R-US_" device="R1206" value="1K"/>
+<part name="R27" library="resistor" deviceset="R-US_" device="R1206" value="510"/>
 </parts>
 <sheets>
 <sheet>

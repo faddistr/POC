@@ -16658,7 +16658,6 @@ Based on the following previous libraries:
 <part name="R23" library="resistor" deviceset="R-US_" device="R1206" value="51"/>
 <part name="R24" library="resistor" deviceset="R-US_" device="R1206" value="51"/>
 <part name="C16" library="rcl" deviceset="C-EU" device="225-062X268" value="330nF 630V K73-17"/>
-<part name="C17" library="rcl" deviceset="C-EU" device="225-062X268" value="330nF 630V K73-17"/>
 <part name="C19" library="rcl" deviceset="CPOL-US" device="E7.5-18" value="47uF 450V"/>
 <part name="P+1" library="supply1" deviceset="V+" device=""/>
 <part name="P+2" library="supply1" deviceset="V+" device=""/>
@@ -16765,7 +16764,6 @@ Gap: 145.47 um
 <instance part="R23" gate="G$1" x="226.06" y="81.28" rot="MR90"/>
 <instance part="R24" gate="G$1" x="226.06" y="66.04" rot="MR90"/>
 <instance part="C16" gate="G$1" x="233.68" y="45.72"/>
-<instance part="C17" gate="G$1" x="241.3" y="53.34"/>
 <instance part="C19" gate="G$1" x="266.7" y="48.26"/>
 <instance part="P+1" gate="1" x="266.7" y="63.5"/>
 <instance part="P+2" gate="1" x="-7.62" y="109.22"/>
@@ -17241,7 +17239,6 @@ Gap: 145.47 um
 <wire x1="210.82" y1="35.56" x2="233.68" y2="35.56" width="0.1524" layer="91"/>
 <junction x="233.68" y="35.56"/>
 <junction x="241.3" y="35.56"/>
-<pinref part="C17" gate="G$1" pin="2"/>
 <wire x1="241.3" y1="48.26" x2="241.3" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="C19" gate="G$1" pin="-"/>
 <pinref part="P-2" gate="1" pin="V-"/>
@@ -17262,7 +17259,6 @@ Gap: 145.47 um
 <wire x1="218.44" y1="58.42" x2="226.06" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="226.06" y1="58.42" x2="226.06" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="D7" gate="G$1" pin="C"/>
-<pinref part="C17" gate="G$1" pin="1"/>
 <wire x1="226.06" y1="58.42" x2="233.68" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="58.42" x2="241.3" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="241.3" y1="58.42" x2="241.3" y2="55.88" width="0.1524" layer="91"/>

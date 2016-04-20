@@ -156,6 +156,12 @@ int main(void)
 		  case TIMER1_EXPIRED:
 			  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
 			  break;
+		  case CMD_HV_ON:
+			  HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_SET);
+			  break;
+		  case CMD_HV_OFF:
+			  HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_RESET);
+			  break;
 		  }
 	  } while (ev.event != NO_EVENT);
 
@@ -253,15 +259,15 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(Input_interrupt_pin_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : Interrupt_trigger_pin_Pin */
-  GPIO_InitStruct.Pin = Interrupt_trigger_pin_Pin;
+  /*Configure GPIO pins : HV_ON_OFF_Pin Interrupt_trigger_pin_Pin */
+  GPIO_InitStruct.Pin = HV_ON_OFF_Pin|Interrupt_trigger_pin_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(Interrupt_trigger_pin_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, HV_ON_OFF_Pin|Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
 
 }
 

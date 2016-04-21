@@ -495,8 +495,8 @@
                                                 <ChoiceBox fx:id="ch2VoltChoiceBox" layoutX="105.0" layoutY="101.0" prefWidth="75.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="101.0" />
                                                 <AnchorPane layoutY="205.0" prefHeight="286.0" prefWidth="198.0" style="-fx-background-color: -fx-inv-body-color;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="205.0">
                                                    <children>
-                                                      <Label fx:id="capturedInfoLabel2" alignment="CENTER" layoutY="259.0" text="no data captured" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="259.0" />
-                                                      <AnchorPane layoutX="-1.0" layoutY="122.0" prefHeight="127.0" prefWidth="190.0">
+                                                      <Label fx:id="capturedInfoLabel2" alignment="CENTER" layoutY="309.0" prefHeight="38.0" prefWidth="198.0" text="no data captured" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="309.0" />
+                                                      <AnchorPane layoutX="4.0" layoutY="182.0" prefHeight="127.0" prefWidth="190.0">
                                                          <children>
                                                             <Button fx:id="goGenButton" layoutX="12.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleGoGenBtn" prefHeight="25.0" prefWidth="166.0" text="Go generate" />
                                                             <TextField fx:id="offsetE" layoutX="123.0" layoutY="22.0" onAction="#offsetEAct" prefHeight="25.0" prefWidth="55.0" text="0" />
@@ -507,7 +507,7 @@
                                                             <Label layoutX="18.0" layoutY="76.0" prefHeight="17.0" prefWidth="55.0" text="Com port" />
                                                          </children>
                                                       </AnchorPane>
-                                                      <AnchorPane layoutX="-1.0" layoutY="7.0" prefHeight="109.0" prefWidth="200.0">
+                                                      <AnchorPane layoutX="-1.0" layoutY="7.0" prefHeight="169.0" prefWidth="200.0">
                                                          <children>
                                                             <Text fx:id="widthText" fill="#3d9147" fontSmoothingType="LCD" layoutX="27.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000.00" textAlignment="CENTER" underline="true" wrappingWidth="152.0">
                                                                <font>
@@ -519,8 +519,10 @@
                                                                   <Font size="20.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField fx:id="windowE" layoutX="129.0" layoutY="68.0" onAction="#windowEAct" prefHeight="25.0" prefWidth="55.0" text="0" />
-                                                            <Label layoutX="24.0" layoutY="72.0" prefHeight="17.0" prefWidth="55.0" text="Window:" />
+                                                            <TextField fx:id="windowE" layoutX="124.0" layoutY="68.0" onAction="#windowEAct" prefHeight="25.0" prefWidth="55.0" text="0" />
+                                                            <Label layoutX="14.0" layoutY="72.0" prefHeight="17.0" prefWidth="55.0" text="Window" />
+                                                            <Label layoutX="14.0" layoutY="93.0" prefHeight="29.0" prefWidth="97.0" text="Meas. offset" />
+                                                            <TextField fx:id="measOfE" layoutX="124.0" layoutY="95.0" onAction="#measOfEAct" prefHeight="25.0" prefWidth="55.0" text="0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
@@ -528,7 +530,7 @@
                                                 <Separator layoutX="99.0" layoutY="40.0" orientation="VERTICAL" prefHeight="90.0" AnchorPane.topAnchor="40.0" />
                                              </children>
                                           </AnchorPane>
-                                          <TitledPane maxHeight="2000.0" prefHeight="145.0" prefWidth="206.0" text="log">
+                                          <TitledPane maxHeight="2000.0" prefHeight="90.0" prefWidth="206.0" text="log">
                                              <content>
                                                 <Label fx:id="cursorInfoLabel2" alignment="CENTER" />
                                              </content></TitledPane>

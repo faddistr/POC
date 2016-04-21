@@ -139,9 +139,12 @@ public class MainController {
 
     @FXML
     TextField ch6NameText;
+    
+    @FXML
+    TextField measOfE;
 
     @FXML
-     Pane ch0Handle;
+    Pane ch0Handle;
 
     @FXML
     ChoiceBox<String> ch0SpecialChoice;
@@ -462,6 +465,20 @@ public class MainController {
             {
                 Main.error(ex, false);
             }
+    }
+    
+    @FXML
+    void measOfEAct(ActionEvent event) {
+        try 
+        {
+            if (oController.setMOffset(Integer.parseInt(measOfE.getText())) == false)
+            {
+                Main.error("Failed to set measurment offset", false);
+            }
+        } catch (NumberFormatException ex) 
+        {
+            Main.error(ex, false);
+        }
     }
     
     @FXML

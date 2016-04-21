@@ -55,10 +55,19 @@ public class OscilloscopeController implements MainController.IController {
     private final int waveHandleWidth = 10;
     private final int waveHandleHeight = 10;
     private int windowFWidth = 1;
+    private int mOffset = 0;
     
     public boolean setWindow(int window) {
-        if (window > 0) {
+        if ((window > 0) && (window < 65536)) {
             this.windowFWidth = window;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean setMOffset(int offset) {
+        if ((offset > 0) && (offset < 65536)) {
+            mOffset = offset;
             return true;
         }
         
@@ -280,8 +289,9 @@ public class OscilloscopeController implements MainController.IController {
                     final double[] wavesY2 = mController.waves[3];
                     int wavePoints1 = 0;
                     int wavePoints2 = 0;
-                    if(d.getWidth1() > 10){
-                        mController.widthText.setText(Double.toString(d.getWidth1())); 
+                    int width = d.findWidth(data1, this.mOffset);
+                    if(width > 10){
+                        mController.widthText.setText(Integer.toString(width)); 
                     }
                     if (xInc >= 1.) {
                         do {

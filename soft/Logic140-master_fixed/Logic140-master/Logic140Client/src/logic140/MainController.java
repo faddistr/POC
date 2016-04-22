@@ -459,11 +459,13 @@ public class MainController {
                if (oController.setWindow(Integer.parseInt(windowE.getText())) == false)
                {
                    Main.error("Failed to set window width", false);
+                   windowE.setText(Integer.toString(oController.getWindow()));
                }
             }
             catch (NumberFormatException ex) 
             {
                 Main.error(ex, false);
+                windowE.setText(Integer.toString(oController.getWindow()));
             }
     }
     

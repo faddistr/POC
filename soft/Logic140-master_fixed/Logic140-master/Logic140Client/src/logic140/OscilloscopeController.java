@@ -65,6 +65,10 @@ public class OscilloscopeController implements MainController.IController {
         return false;
     }
     
+    public int getWindow() {
+        return this.windowFWidth;
+    }
+    
     public boolean setMOffset(int offset) {
         if ((offset > 0) && (offset < 65536)) {
             mOffset = offset;
@@ -255,7 +259,7 @@ public class OscilloscopeController implements MainController.IController {
         Data.DataIterator d = dataIterator;
         if (d.init(sampleIndexToStart)) {
             final double xInc = 1/mController.zoomFactor;
-            if (xInc > 10)
+            if ((xInc >= 10) || (xInc < 0.01))
             {
                 return;
             }
@@ -282,7 +286,7 @@ public class OscilloscopeController implements MainController.IController {
                     byte[] data1 = d.getFilterData1(windowFWidth);
                     byte[] data2 = d.getData2();
                     int o = d.getDataStart();
-                    int dataLeft = d.getRemainingDataLength() - 8;
+                    int dataLeft = d.getRemainingDataLength() - windowFWidth;
                     final double[] wavesX1 = mController.waves[0];
                     final double[] wavesY1 = mController.waves[1];
                     double[] wavesX2  = null;

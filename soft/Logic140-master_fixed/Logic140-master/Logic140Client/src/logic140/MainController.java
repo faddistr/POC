@@ -139,9 +139,12 @@ public class MainController {
 
     @FXML
     TextField ch6NameText;
+    
+    @FXML
+    TextField measOfE;
 
     @FXML
-     Pane ch0Handle;
+    Pane ch0Handle;
 
     @FXML
     ChoiceBox<String> ch0SpecialChoice;
@@ -313,6 +316,9 @@ public class MainController {
     
     @FXML
     TextField comPortE;
+        
+    @FXML
+    TextField windowE;
     
     @FXML
     void handleTimeValueTextAction(ActionEvent event) {
@@ -444,6 +450,35 @@ public class MainController {
           Main.error(ex, false);
       }
       widthE.setText(Integer.toString(gController.getWidth()));
+    }
+    
+    @FXML
+    void windowEAct(ActionEvent event) {
+            try 
+            {
+               if (oController.setWindow(Integer.parseInt(windowE.getText())) == false)
+               {
+                   Main.error("Failed to set window width", false);
+               }
+            }
+            catch (NumberFormatException ex) 
+            {
+                Main.error(ex, false);
+            }
+    }
+    
+    @FXML
+    void measOfEAct(ActionEvent event) {
+        try 
+        {
+            if (oController.setMOffset(Integer.parseInt(measOfE.getText())) == false)
+            {
+                Main.error("Failed to set measurment offset", false);
+            }
+        } catch (NumberFormatException ex) 
+        {
+            Main.error(ex, false);
+        }
     }
     
     @FXML

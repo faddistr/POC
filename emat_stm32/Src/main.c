@@ -47,10 +47,21 @@ TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim1;
-static uint32_t timer_counter;
+//static uint32_t timer_counter;
 static uint32_t last_offset=13702;
 static uint32_t last_width=34;
-
+typedef enum e_hv_state_TAG{
+	HV_STATE_OFF,
+	HV_STATE_ON,
+	} e_hv_state;
+static e_hv_state hv_state = HV_STATE_OFF;
+typedef enum e_ext_int_state_TAG{
+	EXT_INT_STATE_IDLE,
+	EXT_INT_STATE_TRIGGERED,
+	EXT_INT_STATE_DELAY_BEFORE_ON,
+	EXT_INT_STATE_DELAY_BEFORE_OFF,
+	} e_ext_int_state;
+static e_ext_int_state ext_int_state = EXT_INT_STATE_IDLE;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,9 +79,43 @@ static void MX_TIM1_Init(uint32_t period, uint32_t pulse);
 /* USER CODE BEGIN 0 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	char str[16] = {0,};
-	snprintf (str, 16, "cnt=0x%08X", (unsigned)timer_counter);
-	print(str);
+//	char str[16] = {0,};
+//	snprintf (str, 16, "cnt=0x%08X", (unsigned)timer_counter);
+//	print(str);
+	ext_int_state = EXT_INT_STATE_TRIGGERED;
+}
+
+void ExtIntTask(eq_queue_element_s *pEvent)
+{
+	static e_ext_int_state state = EXT_INT_STATE_IDLE;
+	HAL_NVIC_DisableIRQ(EXTI1_IRQn);
+	if (EXT_INT_STATE_TRIGGERED == ext_int_state){
+		state = EXT_INT_STATE_TRIGGERED;
+		ext_int_state = EXT_INT_STATE_IDLE;
+	}
+	HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+	if (EXT_INT_STATE_TRIGGERED == state){
+		TIMER_Start(1, 5);
+		state = EXT_INT_STATE_DELAY_BEFORE_ON;
+	} else if (EXT_INT_STATE_DELAY_BEFORE_ON == state){
+		if (TIMER1_EXPIRED == pEvent->event){
+			if (HV_STATE_ON == hv_state) {
+//				HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_SET);
+			}
+			TIMER_Start(1, 90);
+			state = EXT_INT_STATE_DELAY_BEFORE_OFF;
+		}
+	} else if (EXT_INT_STATE_DELAY_BEFORE_OFF == state) {
+		if (TIMER1_EXPIRED == pEvent->event){
+//			HAL_GPIO_WritePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_RESET);
+			state = EXT_INT_STATE_IDLE;
+		}
+	}
+
+
 }
 
 void EventQueueIsFull(void)
@@ -121,7 +166,7 @@ int main(void)
   HAL_TIM_OnePulse_Start(&htim1,TIM_CHANNEL_2);
 
   EQ_RegisterErrorCalback(EventQueueIsFull);
-  TIMER_StartAuto(1, 10);
+//  TIMER_StartAuto(1, 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -135,12 +180,13 @@ int main(void)
 	  TIMER_Task();
 	  do {
 		  EQ_GetEvent(&ev);
+		  ExtIntTask(&ev);
 		  switch(ev.event){
 		  case NO_EVENT:
 			  break;
 		  case CMD_WIDTH:
 			  //TIMER_StartAuto(1, ev.param.uiParam);
-			  last_width = ev.param.uiParam*34;
+			  last_width = ev.param.uiParam;
 			  TIM1->ARR = last_width+last_offset;
 			  break;
 		  case CMD_OFFSET:
@@ -157,14 +203,18 @@ int main(void)
 //			  HAL_TIM_OnePulse_ConfigChannel(&htim1, &sConfig, TIM_CHANNEL_1, TIM_CHANNEL_2);
 //			  HAL_TIM_OnePulse_Start(&htim1,TIM_CHANNEL_2);
 			  break;
-		  case TIMER1_EXPIRED:
-			  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
-			  break;
+//		  case TIMER1_EXPIRED:
+//			  HAL_GPIO_TogglePin(Interrupt_trigger_pin_GPIO_Port, Interrupt_trigger_pin_Pin);
+//			  break;
 		  case CMD_HV_ON:
-			  HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_SET);
+//			  HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_SET);
+			  hv_state = HV_STATE_ON;
 			  break;
 		  case CMD_HV_OFF:
 			  HAL_GPIO_WritePin(HV_ON_OFF_GPIO_Port, HV_ON_OFF_Pin, GPIO_PIN_RESET);
+			  hv_state = HV_STATE_OFF;
+			  break;
+		  default:
 			  break;
 		  }
 	  } while (ev.event != NO_EVENT);

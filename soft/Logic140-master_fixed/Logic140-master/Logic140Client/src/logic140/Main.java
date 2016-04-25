@@ -50,10 +50,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
+
 /**
  *
  * @author Andrey Petushkov
  */
+// I HATE Andrey Petushkov!!!
 public class Main extends Application {
     static MainController controller;
     static DDS140 device;
@@ -114,7 +116,7 @@ public class Main extends Application {
         saveFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Data file", "*.la140"));
         saveFileChooser.setInitialDirectory(new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile());
         controller.widthText.setText("0.0");
-        FXReScheduler.runAsync(() -> {
+        FXReScheduler.runAsync(()  -> {
             try {
                 device = new DDS140();
                 device.init();
@@ -137,8 +139,8 @@ public class Main extends Application {
                                 while (go) {
                                     DDS140.Packet data1 = device.getData();
                                     if (data1 == null) {
-                                        if (go)
-                                            throw new NullPointerException("null data");
+                                   //     if (go)
+                                     //       throw new NullPointerException("null data");
                                         continue;
                                     }
                                     processData(data1);

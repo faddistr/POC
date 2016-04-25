@@ -26,17 +26,19 @@
 package logic140;
 
 import javafx.application.Platform;
-import javafx.concurrent.Task;
-
+//import java.util.Timer;
+//import java.util.TimerTask;
 /**
  *
  * @author Dragon
  */
+
 public class FXReScheduler {
     public static void runAsync(final Runnable r) {
         Thread t = new Thread(r, "RunAsync");
 //        t.setDaemon(true);
-        t.start();
+       t.start();
+    
     }
     
     public static void runOnFXThread(Runnable r) {

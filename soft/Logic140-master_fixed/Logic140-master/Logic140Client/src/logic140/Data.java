@@ -414,7 +414,7 @@ public class Data {
         boolean isupd = true;
         if (!lead || !trim || min != max) {
             synchronized (data) {
-                if(data.size() > 100)
+                if(data.size() > 128)
                 {
                     data.remove(0);
 //                    isupd = false;

@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import libUsb.UsbDevice;
 import libUsb.UsbDeviceFactory;
 
@@ -314,8 +316,50 @@ class DDS140 implements Runnable {
                         
                         if (usb.controlRequest((byte) 0x33, (byte) 0x00) != (byte) 0x33) // 
                             throw new IOException("DD140 go failed");
-                        boolean firstPacket = true;
-                        while (true) {
+                        
+                  
+                        Timer t = new Timer();
+                        
+                        t.schedule(new TimerTask() {
+                            boolean firstPacket = true;
+                            @Override
+                            public void run() {
+                                    try
+                                    {
+                                        do {
+                                             Packet packet = getFreePacket();
+                                             waitFifoFull();
+                                             if (state != State.RUNNING)
+                                                break;        
+                                             usb.fillBuffer(packet.getBuffer());
+                                             boolean isRunning = state == State.RUNNING;
+                                             if (isRunning) {
+                                                if (usb.controlRequest((byte) 0x33, (byte) 0x00) != (byte) 0x33) // 
+                                                    throw new IOException("DD140 go failed");
+                                             } else {
+                                                releaseDataBuffer(packet);
+                                                break;
+                                             }
+                                             
+                                            if (firstPacket) {
+                                                firstPacket = false;
+                                                releaseDataBuffer(packet);
+                                            } else { 
+                                                packet.trailingGapLength = 0;
+                                                synchronized (lock) {
+                                                    busyPool.add(packet);
+                                                    lock.notifyAll();
+                                                }
+                                            }
+                                             
+                                        } while(false);
+                                    } catch(Exception ex) {
+                                    }
+                            }
+                        } , 0, 100);
+                        while(state == State.RUNNING);
+                        t.cancel();
+                        /*while (true) {
                             Packet packet = getFreePacket();
                             waitFifoFull();
                             if (state != State.RUNNING)
@@ -348,7 +392,7 @@ class DDS140 implements Runnable {
                                 }
                             }
                             dataStartTime = dataInTime;
-                        }
+                        }*/
                     }
                 }
                 catch (IOException ex) {
@@ -365,7 +409,7 @@ class DDS140 implements Runnable {
                 } else {
                     stop();
                 }
-            } // while
+            } // while 
         } // try
         catch (InterruptedException ex) {
             state = State.INTERRUPTED;

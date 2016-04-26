@@ -357,7 +357,9 @@ class DDS140 implements Runnable {
                                     }
                             }
                         } , 0, 100);
-                        while(state == State.RUNNING);
+                        while(state == State.RUNNING) {
+                            Thread.sleep(10);
+                        }
                         t.cancel();
                         /*while (true) {
                             Packet packet = getFreePacket();

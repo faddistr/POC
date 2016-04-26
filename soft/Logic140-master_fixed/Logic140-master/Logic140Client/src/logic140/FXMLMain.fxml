@@ -523,6 +523,8 @@
                                                             <Label layoutX="14.0" layoutY="72.0" prefHeight="17.0" prefWidth="55.0" text="Window" />
                                                             <Label layoutX="14.0" layoutY="93.0" prefHeight="29.0" prefWidth="97.0" text="Meas. offset" />
                                                             <TextField fx:id="measOfE" layoutX="124.0" layoutY="95.0" onAction="#measOfEAct" prefHeight="25.0" prefWidth="55.0" text="0" />
+                                                            <Label layoutX="14.0" layoutY="120.0" prefHeight="29.0" prefWidth="97.0" text="Avd." />
+                                                            <TextField fx:id="avdE" layoutX="124.0" layoutY="122.0" onAction="#avdEAct" prefHeight="25.0" prefWidth="55.0" text="0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </children>

@@ -71,6 +71,10 @@ public class MainController {
 
     @FXML
     Text widthText;
+    
+    
+    
+    
     @FXML
      Pane ch3Handle;
 
@@ -142,6 +146,9 @@ public class MainController {
     
     @FXML
     TextField measOfE;
+
+    @FXML
+    TextField avdE;
 
     @FXML
     Pane ch0Handle;
@@ -435,6 +442,23 @@ public class MainController {
 
 
     private boolean isOpen = false;
+    
+    @FXML
+    void avdEAct(ActionEvent event) {
+        try {
+            int k = Integer.parseInt(avdE.getText());
+            if (k >= 0) {
+                Main.setmWindow(k);
+            } else {
+                Main.error("Must be >= 0", false);
+            }
+        
+        } catch (NumberFormatException ex) {
+            Main.error(ex, false);
+        }
+        
+        avdE.setText(Integer.toString(Main.getmWindow()));
+    }
     
     @FXML
     void widthEAct(ActionEvent event) {

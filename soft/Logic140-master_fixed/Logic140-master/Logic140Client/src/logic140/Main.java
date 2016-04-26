@@ -81,11 +81,20 @@ public class Main extends Application {
     
      
 
+    public static int getmWindow() {
+        return oData.getmWindow();
+    }
     
-    public void setWidthText(String text)
-    {
+    public  static void setmWindow(int mWindow) {
+        oData.setmWindow(mWindow);
+    }
+
+    
+    
+    public void setWidthText(String text){
             controller.widthText.setText(text);
     }
+    
 
     @Override
     public void start(final Stage stage) throws Exception {

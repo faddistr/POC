@@ -43,6 +43,7 @@ import javafx.application.Platform;
  */
 public class Data {
     private final List<Packet> data = new ArrayList<>();
+    private int mWindow = 0;
     private boolean lead;
     private DDS140.Frequency frequency;
     private boolean trim;
@@ -51,6 +52,18 @@ public class Data {
     volatile int totalNumDataSamples;
     volatile int totalNumSamples;
     boolean isLogicAnalyzerMode;
+    
+    public void setmWindow (int window) {
+        if (window < 0) {
+            return;
+        }
+        clear();
+        mWindow = window;
+    }
+    
+    public int getmWindow() {
+        return mWindow;
+    }
 
     class Packet {
         final byte[] buf1;
@@ -153,7 +166,7 @@ public class Data {
         }
         
         private Packet(byte[] buf1, byte[] buf2, int bufLength, int trailingGapLength, 
-                byte min, byte max, byte minCh1, byte maxCh1, byte minCh2, byte maxCh2) {
+                 byte min, byte max, byte minCh1, byte maxCh1, byte minCh2, byte maxCh2) {
             this.buf1 = buf1;
             this.buf2 = buf2;
             this.trailingGapLength = trailingGapLength;
@@ -382,6 +395,29 @@ public class Data {
         data.clear();
     }
     
+    byte[] makeMdata(byte[] d) {
+        byte[] out = new byte[d.length];
+        long[] outl = new long[d.length];
+        
+     //   Arrays.fill(outl, 0);
+        for (int i = 0; i < data.size(); i++) {
+            byte[] pktbuf = data.get(i).buf1;
+            for (int j = 0; j < pktbuf.length; j++) {
+                outl[j] += (pktbuf[j] & 0xff);
+            }
+        }
+        
+        for (int j = 0; j < d.length; j++) {
+            outl[j] += (d[j] & 0xff);
+        }
+        
+        for (int i=0; i < out.length; i++) {
+           out[i] = (byte)(outl[i] / (data.size()+1));
+        }
+        
+        return out;
+    }
+    
     void processData(DDS140.Packet packet) {
         ByteBuffer buf = packet.getBuffer();
         final int packetTrailingGap = packet.getTrailingGapLength();
@@ -411,24 +447,30 @@ public class Data {
             d2[i] = val2;
         }
         Main.device.releaseDataBuffer(packet);
-        boolean isupd = true;
+
         if (!lead || !trim || min != max) {
             synchronized (data) {
-                if(data.size() > 128)
-                {
+                Packet pkt;
+                if ((mWindow > 0) && (data.size()+1 >= mWindow)) {
+                    pkt = new Packet(makeMdata(d1), d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);
                     data.remove(0);
-//                    isupd = false;
                 } else {
-                    totalNumSamples += buf.capacity() / 2 + packetTrailingGap;
-                    totalNumDataSamples += buf.capacity() / 2;
+                    pkt = new Packet(d1, d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);
+                    if ((data.size() > 128) && (mWindow == 0)) {
+                        data.remove(0);
+                    } else {
+                        totalNumSamples += buf.capacity() / 2 + packetTrailingGap;
+                        totalNumDataSamples += buf.capacity() / 2;
+                    }
                 }
-                data.add(new Packet(d1, d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2));
+                data.add(pkt);
+                pkt = null;
                 
             }
             lead = false;
-            if (isupd){
-                Platform.runLater(() -> Main.controller.updateWaves(totalNumSamples, totalNumSamples));
-            }
+
+            Platform.runLater(() -> Main.controller.updateWaves(totalNumSamples, totalNumSamples));
+            
         }
     }
     

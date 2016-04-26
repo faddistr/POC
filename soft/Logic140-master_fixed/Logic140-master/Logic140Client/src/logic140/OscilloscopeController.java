@@ -240,7 +240,7 @@ public class OscilloscopeController implements MainController.IController {
     }
     
 
-        @Override
+    /*    @Override
     public void redrawWaves(int firstSampleIndex) {
         if (mController.zoomFactor < 3./65536)
             return;
@@ -356,8 +356,8 @@ public class OscilloscopeController implements MainController.IController {
             gc.translate(-0.5, -0.5);
         }        
         mController.timeValueText.setText(dataRef.sampleToTime(firstSampleIndex, mController.timeUnits));
-    }
-    /*@Override
+    }*/
+    @Override
     public void redrawWaves(int firstSampleIndex) {
         if (mController.zoomFactor < 3./65536)
             return;
@@ -401,7 +401,7 @@ public class OscilloscopeController implements MainController.IController {
             do {
                     byte[] data1 = d.getFilterData1(windowFWidth);
                     byte[] data2 = d.getData2();
-                    int o = d.getDataStart();
+                    int o = 100 + mOffset;
                     int dataLeft = d.getRemainingDataLength() - windowFWidth;
                     final double[] wavesX1 = mController.waves[0];
                     final double[] wavesY1 = mController.waves[1];
@@ -467,8 +467,8 @@ public class OscilloscopeController implements MainController.IController {
             gc.translate(-0.5, -0.5);
         }        
         mController.timeValueText.setText(dataRef.sampleToTime(firstSampleIndex, mController.timeUnits));
-    }*/
-  /*  int min = 0;
+    }
+    int min = 0;
     int max = 0;
     int cur = 0;
     private int drawCompressedWave(byte[] data, int o, double[] wavesX, double[] wavesY, 
@@ -502,7 +502,7 @@ public class OscilloscopeController implements MainController.IController {
         
         
         return wavePoints;
-    } */
+    }  /*
         private int drawCompressedWave(byte[] data, int o, double[] wavesX, double[] wavesY, 
             double xInc, int dataLeft, double x, int y0, int y1, double h, int xLast) {
         int prevLast = (data[o] & 0xff);
@@ -557,8 +557,8 @@ public class OscilloscopeController implements MainController.IController {
 
         return wavePoints;
     }
-
-
+*/
+    int mousePos = 0;
     @Override
     public void updateMouseInfo(int localX, int sceneX, int localY, int mousePos) {
         final String posStr = dataRef.sampleToTime((int)(mousePos*mController.zoomFactor), mController.timeUnits);

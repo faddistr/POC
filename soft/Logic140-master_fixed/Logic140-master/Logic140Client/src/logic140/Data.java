@@ -249,6 +249,12 @@ public class Data {
             return packet.buf2;
         }
         
+        public byte[] getMData(int k) {
+            if ((data.size() >= mWindow) && (mWindow != 0))
+                return packet.filterBuffer(makeMdata(), k); 
+            else
+                return getFilterData1(k);
+        }
         
         byte[] getData1() {
             if (atLostData())
@@ -395,9 +401,9 @@ public class Data {
         data.clear();
     }
     
-    byte[] makeMdata(byte[] d) {
-        byte[] out = new byte[d.length];
-        long[] outl = new long[d.length];
+    byte[] makeMdata() {
+        byte[] out = new byte[data.get(0).buf1.length];
+        long[] outl = new long[out.length];
         
      //   Arrays.fill(outl, 0);
         for (int i = 0; i < data.size(); i++) {
@@ -407,12 +413,8 @@ public class Data {
             }
         }
         
-        for (int j = 0; j < d.length; j++) {
-            outl[j] += (d[j] & 0xff);
-        }
-        
         for (int i=0; i < out.length; i++) {
-           out[i] = (byte)(outl[i] / (data.size()+1));
+           out[i] = (byte)(outl[i] / data.size());
         }
         
         return out;
@@ -450,12 +452,12 @@ public class Data {
 
         if (!lead || !trim || min != max) {
             synchronized (data) {
-                Packet pkt;
-                if ((mWindow > 0) && (data.size()+1 >= mWindow)) {
-                    pkt = new Packet(makeMdata(d1), d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);
+                Packet pkt = new Packet(d1, d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);;
+                if ((mWindow > 0) && (data.size() >= mWindow)) {
+                  //  pkt = new Packet(makeMdata(d1), d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);
                     data.remove(0);
                 } else {
-                    pkt = new Packet(d1, d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);
+                 //   pkt = new Packet(d1, d2, d2.length, packetTrailingGap, min, max, minCh1, maxCh1, minCh2, maxCh2);
                     if ((data.size() > 128) && (mWindow == 0)) {
                         data.remove(0);
                     } else {

@@ -399,7 +399,7 @@ public class OscilloscopeController implements MainController.IController {
             gc.stroke();
             gc.setLineWidth(1);
             do {
-                    byte[] data1 = d.getFilterData1(windowFWidth);
+                    byte[] data1 = d.getMData(windowFWidth);
                     byte[] data2 = d.getData2();
                     int o = 100 + mOffset;
                     int dataLeft = d.getRemainingDataLength() - windowFWidth;

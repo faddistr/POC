@@ -52,6 +52,6 @@
     -->
     
     <target name="-pre-jfx-jar">
-        <copy file="../Logic140_winusb/x64/Win7Debug/Logic140_winusb.dll" todir="${build.classes.dir}/win64"/>
+        <copy file="../Logic140_winusb/x64/Win7Release/Logic140_winusb.dll" todir="${build.classes.dir}/win64"/>
     </target>
 </project>
